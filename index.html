@@ -24,12 +24,15 @@
 
 <script>
   const ws = new WebSocket("ws://192.168.162.49/ws");
+  ws.onopen = () => {
+    console.log("connected");
+  };
 
   convertUItoMatrixArrayOfColorsWithResolution(
     document.querySelector("main") || document.body,
     32,
     8,
-  ).then((array) => ws.send(JSON.stringify(array)));
+  ).then((array) => ws.send("hello"));
 
   const imgAverageColorPicker = new ColorThief();
   /**
