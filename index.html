@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+  <script defer src="./script.js"></script>
+</head>
+
+<body class="p-4 grid">
+  <main class="relative w-[300px] h-[80px]">
+    <div class="absolute w-[10px] h-[10px] bg-red-500 top-[20px] left-0"></div>
+    <div class="absolute w-[10px] h-[10px] bg-red-500 top-[70px] left-0"></div>
+    <div class="absolute w-[10px] h-[10px] bg-green-500 top-[70px] left-[290px]"></div>
+    <div class="absolute w-[10px] h-[10px] bg-blue-500 top-[00px] left-[240px]"></div>
+  </main>
+
+  <div id="images" class="flex"></div>
+</body>
+
+<script>
+  const imgAverageColorPicker = new ColorThief();
+  /**
+   *
+   * @param {HTMLElement} htmlElement
+   * @param {number} x
+   * @param {number} y
+   * @param {unknown} options
+ */
+  function convertUItoMatrixArrayOfColorsWithResolution(
+    htmlElement,
+    x,
+    y,
+    options = {},
+  ) {
+    return new Promise((resolve, reject) => {
+      html2canvas(htmlElement).then((thisHtmlCanvas) => {
+        const thisHtmlCtx = thisHtmlCanvas.getContext("2d", { willReadFrequently: true });
+
+        const canvasTotalWidth = thisHtmlCanvas.width;
+        const canvasTotalHeight = thisHtmlCanvas.height;
+
+        const canvasPartWidth = canvasTotalWidth / (x-1);
+        const canvasPartHeight = (canvasTotalHeight / y);
+
+        const result = [];
+
+        for (let forY = 0; forY < y; forY++) {
+          result[forY] = [];
+          for (let forX = 0; forX < x; forX++) {
+            const x0 = forX * canvasPartWidth;
+            const y0 = forY * canvasPartHeight;
+
+            const thisPartCanvas = document.createElement("canvas");
+            thisPartCanvas.width = canvasPartWidth;
+            thisPartCanvas.height = canvasPartHeight;
+            const thisPartCtx = thisPartCanvas.getContext("2d");
+
+            thisPartCtx.putImageData(
+              thisHtmlCtx.getImageData(
+                x0, y0,
+                thisPartCanvas.width, thisPartCanvas.height
+              ),
+              0, 0
+            );
+
+            const thisPartImage = new Image(thisPartCanvas.width, thisPartCanvas.height);
+            thisPartImage.src = thisPartCanvas.toDataURL();
+            thisPartImage.classList.add("outline");
+
+            thisPartImage.addEventListener("load", () => {
+              try {
+                result[forY][forX] = imgAverageColorPicker.getColor(thisPartImage);
+              } catch(err) {}
+              if (forY == y-1 && forX == x-1) resolve(result);
+            })
+          }
+        }
+      })
+    })
+  }
+
+  convertUItoMatrixArrayOfColorsWithResolution(
+    document.querySelector("main") || document.body,
+    32,
+    8,
+  ).then(console.log);
+</script>
+
+</html>
