@@ -1,4 +1,5 @@
 #include <SoftwareSerial.h>
+#include <ArduinoJson.h>
 SoftwareSerial Serial2(2, 3);  // RX, TX
 
 void setup() {
@@ -11,6 +12,20 @@ void loop() {
 }
 
 void myCallback(String esp32value) {
+  StaticJsonDocument<1024> doc;
+  DeserializationError error = deserializeJson(doc, esp32value);
+  if (error) {
+    Serial.print("deserializeJson() failed: ");
+    Serial.println(error.c_str());
+    return;
+  }
+
+  for(int y = 0; y < doc.size(); y++) {
+    for(int x = 0; x < doc[y].size(); x++) {
+      Serial.println(doc[y][x].as<String>());
+    }
+  }
+
   Serial.println("⬅️ ho ricevuto un messaggio: " + esp32value);
 };
 
