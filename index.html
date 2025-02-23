@@ -12,8 +12,8 @@
 </head>
 
 <body class="p-4 grid gap-4">
-  <main style="zoom:3; background-position: 0 -80px;" class="relative flex w-[300px] h-[80px] justify-between" >
-    <video src="./img/Color Logo Animation.mp4" autoplay loop></video>
+  <main style="zoom:3; background-position: 0 -80px;" class="outline relative flex w-[300px] h-[80px] justify-between" >
+    <video src="./img/Color Logo Animation.mp4" class="w-full object-fill" autoplay loop></video>
     <!-- <div class="absolute w-[10px] h-[10px] bg-red-500 top-[20px] left-0"></div>
     <div class="absolute w-[10px] h-[10px] bg-red-500 top-[70px] left-0"></div>
     <div class="absolute w-[10px] h-[10px] bg-green-500 top-[70px] left-[290px]"></div>
@@ -27,7 +27,7 @@
 </body>
 
 <script>
-  const ipEsp32 = '192.168.162.49';
+  const ipEsp32 = '192.168.162.201';
   const ws = new WebSocket(`ws://${ipEsp32}/ws`);
 
   document.getElementById("sendBtn").addEventListener("click", sendBtnClick);
@@ -36,13 +36,21 @@
     window.location.reload();
   });
 
-  function sendBtnClick() {
+  setInterval(() => {
     convertUItoMatrixArrayOfColorsWithResolution(
       document.querySelector("main") || document.body,
       32,
       8,
     );
-  };
+  },1000);
+
+  // function sendBtnClick() {
+  //   convertUItoMatrixArrayOfColorsWithResolution(
+  //     document.querySelector("main") || document.body,
+  //     32,
+  //     8,
+  //   );
+  // };
 
   const imgAverageColorPicker = new ColorThief();
   /**
