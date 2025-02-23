@@ -108,7 +108,7 @@
               if (forY == y - 1) {
                 setTimeout(() => {
                   ws.send(JSON.stringify({ xLine: forX, colorArray: result[forX] }));
-                }, 1000 * forX)
+                }, 1000 * forX); // too slow but it solves the problem
               };
               if (forY == y - 1 && forX == x - 1) resolve(result);
             })
