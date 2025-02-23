@@ -12,7 +12,7 @@ void loop() {
 }
 
 void myCallback(String esp32value) {
-  StaticJsonDocument<1024> doc;
+  DynamicJsonDocument doc(4000);
   DeserializationError error = deserializeJson(doc, esp32value);
   if (error) {
     Serial.print("deserializeJson() failed: ");
@@ -27,6 +27,8 @@ void myCallback(String esp32value) {
   }
 
   Serial.println("⬅️ ho ricevuto un messaggio: " + esp32value);
+
+  doc.clear();
 };
 
 String listenToNewSerialData(void (*myCallback)(String)) {
