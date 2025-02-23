@@ -20,8 +20,7 @@ void setup() {
   while (WiFi.status() != WL_CONNECTED) {};
   Serial.println("WiFi connected! IP Address: " + WiFi.localIP().toString());
 
-  ws.onEvent([](AsyncWebSocket *server, AsyncWebSocketClient *client,
-                AwsEventType type, void *arg, uint8_t *data, size_t len) {
+  ws.onEvent([](AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len) {
     const bool isConnecting = type == WS_EVT_CONNECT;
     const bool isDisconnecting = type == WS_EVT_DISCONNECT;
     const bool hasData = type == WS_EVT_DATA;
@@ -64,11 +63,6 @@ void setup() {
     };
 
     doc.clear();
-
-
-    // ws.textAll(thisStringData);
-    // Serial2.println(thisStringData);
-    // Serial.println("⬅️ ho ricevuto dal CLIENT un messaggio e ➡️ inoltrato ai altri: " + String(thisStringData));
   });
 
   server.addHandler(&ws);
@@ -77,29 +71,4 @@ void setup() {
 
 void loop() {
   ws.cleanupClients();
-  // listenToNewSerialData(&myCallback);
 };
-
-// void myCallback(String arduinoValue) {
-//   Serial.println("⬅️ ho ricevuto da ARDUINO un messaggio e ➡️ inoltrato ai altri: " + arduinoValue);
-//   ws.textAll(arduinoValue);
-// }
-
-// String listenToNewSerialData(void (*myCallback)(String)) {
-//   static String receivedString;
-
-//   while (Serial2.available() > 0) {
-//     const char thisChar = Serial2.read();
-//     const bool isLastChar = thisChar == '\n';
-
-//     if (!isLastChar) {
-//       receivedString += thisChar;
-//       continue;
-//     };
-
-//     myCallback(receivedString);
-//     receivedString = "";
-//   };
-
-//   return "";
-// };
