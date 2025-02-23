@@ -67,6 +67,7 @@ void setup() {
 
   server.addHandler(&ws);
   server.begin();
+  
 }
 
 void loop() {
