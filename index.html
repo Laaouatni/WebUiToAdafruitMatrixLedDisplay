@@ -8,7 +8,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
-  <script defer src="./script.js"></script>
 </head>
 
 <body class="p-4 grid gap-4">
@@ -57,13 +56,7 @@
   };
 
   const imgAverageColorPicker = new ColorThief();
-  /**
-   *
-   * @param {HTMLElement} htmlElement
-   * @param {number} x
-   * @param {number} y
-   * @param {never} options
- */
+
   function convertUItoMatrixArrayOfColorsWithResolution(
     htmlElement,
     x,
