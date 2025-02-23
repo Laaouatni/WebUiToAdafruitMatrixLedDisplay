@@ -89,9 +89,9 @@
 
         const result = [];
 
-        for (let forX = 0; forX < x; forX++) {
-          result[forX] = [];
-          for (let forY = 0; forY < y; forY++) {
+        for (let forY = 0; forY < y; forY++) {
+          result[forY] = [];
+          for (let forX = 0; forX < x; forX++) {
             const x0 = forX * canvasPartWidth;
             const y0 = forY * canvasPartHeight;
 
@@ -111,20 +111,19 @@
             const thisPartImage = new Image(thisPartCanvas.width, thisPartCanvas.height);
             thisPartImage.src = thisPartCanvas.toDataURL();
 
-            document.querySelector("#images").append(`${forX} ${forY} `);
+            document.querySelector("#images").append(`${forY} ${forX}`);
             document.querySelector("#images").appendChild(thisPartImage);
 
 
             thisPartImage.addEventListener("load", () => {
               try {
-                console.log(forX, forY, result)
-                result[forX][forY] = imgAverageColorPicker.getColor(thisPartImage);
+                console.log(forY, forX, result)
+                result[forY][forX] = imgAverageColorPicker.getColor(thisPartImage);
               } catch (err) { }
-              if (forY == y - 1) {
-                // ws.send(JSON.stringify({ xLine: forX, colorArray: result[forX] }));
+              if (forX == x - 1) {
+                ws.send(JSON.stringify({ yLine: forY, colorArray: result[forY] }));
               };
               if (forY == y - 1 && forX == x - 1) {
-                ws.send(JSON.stringify(result))
                 resolve(result);
               }
             })
