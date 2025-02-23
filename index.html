@@ -94,8 +94,8 @@
                 result[forY][forX] = imgAverageColorPicker.getColor(thisPartImage);
               } catch (err) { }
               if(forX == x - 1) {
-                ws.send(JSON.stringify({a:0}))
-                // ws.send(JSON.stringify({yLine:forY, colorArray:result[forY]}));
+                // ws.send(JSON.stringify({a:0}))
+                ws.send(JSON.stringify({yLine:forY, colorArray:result[forY]}));
               };
               if (forY == y - 1 && forX == x - 1) resolve(result);
             })
