@@ -93,7 +93,8 @@
 
             thisPartImage.addEventListener("load", () => {
               try {
-                result[forY][forX] = imgAverageColorPicker.getColor(thisPartImage) || 0;
+                const thisAverageColor = imgAverageColorPicker.getColor(thisPartImage);
+                result[forY][forX] = thisAverageColor != null ? thisAverageColor : 0;
               } catch (err) { }
               if (forY == y - 1 && forX == x - 1) resolve(result);
             })
