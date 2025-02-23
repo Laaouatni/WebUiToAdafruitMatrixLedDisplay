@@ -33,38 +33,38 @@ void setup() {
     const String thisStringData = String((char *)data).substring(0, len);
 
     Serial.println(thisStringData);
-    // DeserializationError error = deserializeJson(doc, thisStringData);
+    DeserializationError error = deserializeJson(doc, thisStringData);
 
-    // if(error) {
-    //   Serial.println("deserializeJson() failed: " + String(error.c_str()));
-    //   return;
-    // };
+    if(error) {
+      Serial.println("deserializeJson() failed: " + String(error.c_str()));
+      return;
+    };
 
-    // Serial.println("xLine: " + doc["xLine"].as<String>());
+    Serial.println("yLine: " + doc["yLine"].as<String>());
 
-    // for(int thisY = 0; thisY < 8; thisY++) {
-    //   int R,G,B;
-    //   if(doc["colorArray"][thisY].size() < 3) {
-    //     R = 255;
-    //     G = 255;
-    //     B = 255;
-    //   } else {
-    //     R = doc["colorArray"][thisY][0].as<int>();
-    //     G = doc["colorArray"][thisY][1].as<int>();
-    //     B = doc["colorArray"][thisY][2].as<int>();
-    //   };
-    //   Serial.println(String(R) + "\t" + String(G) + "\t" + String(B));
+    for(int thisX = 0; thisX < 32; thisX++) {
+      int R,G,B;
+      if(doc["colorArray"][thisX].size() < 3) {
+        R = 255;
+        G = 255;
+        B = 255;
+      } else {
+        R = doc["colorArray"][thisX][0].as<int>();
+        G = doc["colorArray"][thisX][1].as<int>();
+        B = doc["colorArray"][thisX][2].as<int>();
+      };
+      Serial.println(String(R) + "\t" + String(G) + "\t" + String(B));
 
-    //   thisPannello.drawPixel(
-    //     doc["xLine"].as<int>(), 
-    //     thisY, 
-    //     thisPannello.Color(R,G,B)
-    //   );
+      thisPannello.drawPixel(
+        thisX, 
+        doc["yLine"].as<int>(), 
+        thisPannello.Color(R,G,B)
+      );
 
-    //   thisPannello.show();
-    // };
+      thisPannello.show();
+    };
 
-    // doc.clear();
+    doc.clear();
   });
 
   server.addHandler(&ws);
