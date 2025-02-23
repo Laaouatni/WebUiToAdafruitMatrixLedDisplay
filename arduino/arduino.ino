@@ -1,10 +1,15 @@
 #include <SoftwareSerial.h>
 #include <ArduinoJson.h>
+#include <Adafruit_NeoMatrix.h>
+
+Adafruit_NeoMatrix thisPannello = Adafruit_NeoMatrix(32,8,6,NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG);
 SoftwareSerial Serial2(2, 3);  // RX, TX
 
 void setup() {
   Serial2.begin(4800);
   Serial.begin(4800);
+  thisPannello.begin();
+  thisPannello.setBrightness(10);
 }
 
 void loop() {
@@ -12,13 +17,13 @@ void loop() {
 }
 
 void myCallback(String esp32value) {
-  // JsonDocument doc;
-  // DeserializationError error = deserializeJson(doc, esp32value);
-  // if (error) {
-  //   Serial.print("deserializeJson() failed: ");
-  //   Serial.println(error.c_str());
-  //   return;
-  // }
+  JsonDocument doc;
+  DeserializationError error = deserializeJson(doc, esp32value);
+
+  if (error) {
+    Serial.println("deserializeJson() failed: " + String(error.c_str()));
+    return;
+  };
 
   // for(int y = 0; y < doc.size(); y++) {
   //   for(int x = 0; x < doc[y].size(); x++) {
@@ -26,9 +31,31 @@ void myCallback(String esp32value) {
   //   }
   // }
 
+  for(int thisY = 0; thisY < 8; thisY++) {
+    int R,G,B;
+    if(doc["colorArray"][thisY].size() < 3) {
+      R = 255;
+      G = 255;
+      B = 255;
+    } else {
+      R = doc["colorArray"][thisY][0];
+      G = doc["colorArray"][thisY][1];
+      B = doc["colorArray"][thisY][2];
+    }
+
+    thisPannello.drawPixel(
+      doc["xLine"], 
+      thisY, 
+      thisPannello.Color(R,G,B)
+    );
+  };
+
+  thisPannello.show();
+  thisPannello.fill(0);
+
   Serial.println("⬅️ ho ricevuto un messaggio: " + esp32value);
 
-  // doc.clear();
+  doc.clear();
 };
 
 String listenToNewSerialData(void (*myCallback)(String)) {
