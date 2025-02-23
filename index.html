@@ -12,11 +12,10 @@
 </head>
 
 <body class="p-4 grid gap-4">
-  <main style="zoom:3; background-position: 0 -80px;" class="outline relative flex w-[300px] h-[80px] justify-between">
+  <main style="zoom:3; background-position: 0 -80px;" class="outline relative flex w-[300px] h-[80px] justify-between transition-all">
     <!-- <img src="./img/matrixWhiteBlack.jpeg"> -->
-    <video src="./img/Color Logo Animation.mp4" class="w-full object-fill" autoplay="true" controls loop></video>
-     <!-- <div class="w-[33.3%] bg-green-500"></div>
-     <div class="w-[33.3%] bg-blue-500"></div> -->
+    <!-- <div class="w-[33.3%] bg-green-500"></div>
+    <div class="w-[33.3%] bg-blue-500"></div> -->
     <!-- <div class="absolute w-[10px] h-full bg-red-500 top-[20px] left-0"></div>
     <div class="absolute w-[10px] h-[10px] bg-red-500 top-[70px] left-0"></div>
     <div class="absolute w-[10px] h-[10px] bg-green-500 top-[70px] left-[290px]"></div>
@@ -49,12 +48,16 @@
     })
   
     setInterval(() => {
+      /* change the colors of gradient of main element*/
+      const mainElement = document.querySelector("main");
+      mainElement.style.backgroundImage = `linear-gradient(90deg, hsl(${Math.random() * 360}, 100%, 50%), hsl(${Math.random() * 360}, 100%, 50%))`;
+
       convertUItoMatrixArrayOfColorsWithResolution(
         document.querySelector("main") || document.body,
         32,
         8,
       );
-    }, (300 * 8)+100);
+    }, (200 * 8));
   });
 
 
