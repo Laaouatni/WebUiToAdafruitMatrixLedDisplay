@@ -13,7 +13,10 @@ void setup() {
 }
 
 void loop() {
-  listenToNewSerialData(&myCallback);
+  // listenToNewSerialData(&myCallback);
+  thisPannello.fill(0);
+  thisPannello.drawPixel(7,7, thisPannello.Color(100,100,100));
+  thisPannello.show();
 }
 
 void myCallback(String esp32value) {
