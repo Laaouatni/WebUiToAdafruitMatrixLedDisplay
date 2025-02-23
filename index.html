@@ -11,8 +11,8 @@
 </head>
 
 <body class="p-4 grid gap-4">
-  <main style="zoom:3; background-position: 0 -80px;" class="outline relative flex w-[300px] h-[80px] justify-between transition-all">
-  
+  <main style="zoom:3; background-position: 0 -80px;" 
+        class="outline relative flex w-[300px] h-[80px] justify-between transition-all">
   </main>
 </body>
 
@@ -34,7 +34,6 @@
     })
   
     setInterval(() => {
-      /* change the colors of gradient of main element*/
       const mainElement = document.querySelector("main");
       mainElement.style.backgroundImage = `linear-gradient(90deg, hsl(${Math.random() * 360}, 100%, 50%), hsl(${Math.random() * 360}, 100%, 50%))`;
 
