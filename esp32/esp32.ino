@@ -7,8 +7,8 @@
 AsyncWebServer server(80);
 AsyncWebSocket ws("/ws");
 
-Adafruit_NeoMatrix thisPannello = Adafruit_NeoMatrix(32,8,6,NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG);
-JsonDcoument doc;
+Adafruit_NeoMatrix thisPannello = Adafruit_NeoMatrix(32,8,15,NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG);
+JsonDocument doc;
 
 void setup() {
   Serial.begin(9600);
