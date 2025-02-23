@@ -3,8 +3,8 @@
 SoftwareSerial Serial2(2, 3);  // RX, TX
 
 void setup() {
-  Serial2.begin(9600);
-  Serial.begin(9600);
+  Serial2.begin(4800);
+  Serial.begin(4800);
 }
 
 void loop() {
