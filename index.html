@@ -31,29 +31,29 @@
   const ipEsp32 = '192.168.162.49';
   const ws = new WebSocket(`ws://${ipEsp32}/ws`);
 
-  // document.getElementById("sendBtn").addEventListener("click", sendBtnClick);
+  document.getElementById("sendBtn").addEventListener("click", sendBtnClick);
 
   ws.addEventListener("close", () => {
     window.location.reload();
   });
 
-  ws.addEventListener("open", () => {
-    setTimeout(() => {
-      convertUItoMatrixArrayOfColorsWithResolution(
-        document.querySelector("main") || document.body,
-        32,
-        8,
-      );
-    })
+  // ws.addEventListener("open", () => {
+  //   setTimeout(() => {
+  //     convertUItoMatrixArrayOfColorsWithResolution(
+  //       document.querySelector("main") || document.body,
+  //       32,
+  //       8,
+  //     );
+  //   })
   
-    setInterval(() => {
-      convertUItoMatrixArrayOfColorsWithResolution(
-        document.querySelector("main") || document.body,
-        32,
-        8,
-      );
-    }, 5 * 1000);
-  });
+  //   setInterval(() => {
+  //     convertUItoMatrixArrayOfColorsWithResolution(
+  //       document.querySelector("main") || document.body,
+  //       32,
+  //       8,
+  //     );
+  //   }, 5 * 1000);
+  // });
 
 
   function sendBtnClick() {
@@ -121,9 +121,12 @@
                 result[forX][forY] = imgAverageColorPicker.getColor(thisPartImage);
               } catch (err) { }
               if (forY == y - 1) {
-                ws.send(JSON.stringify({ xLine: forX, colorArray: result[forX] }));
+                // ws.send(JSON.stringify({ xLine: forX, colorArray: result[forX] }));
               };
-              if (forY == y - 1 && forX == x - 1) resolve(result);
+              if (forY == y - 1 && forX == x - 1) {
+                ws.send(JSON.stringify(result))
+                resolve(result);
+              }
             })
           }
         }

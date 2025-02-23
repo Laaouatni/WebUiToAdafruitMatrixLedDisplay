@@ -31,38 +31,40 @@ void setup() {
     if (!hasData) return;
 
     const String thisStringData = String((char *)data).substring(0, len);
-    DeserializationError error = deserializeJson(doc, thisStringData);
 
-    if(error) {
-      Serial.println("deserializeJson() failed: " + String(error.c_str()));
-      return;
-    };
+    Serial.println(thisStringData);
+    // DeserializationError error = deserializeJson(doc, thisStringData);
 
-    Serial.println("xLine: " + doc["xLine"].as<String>());
+    // if(error) {
+    //   Serial.println("deserializeJson() failed: " + String(error.c_str()));
+    //   return;
+    // };
 
-    for(int thisY = 0; thisY < 8; thisY++) {
-      int R,G,B;
-      if(doc["colorArray"][thisY].size() < 3) {
-        R = 255;
-        G = 255;
-        B = 255;
-      } else {
-        R = doc["colorArray"][thisY][0].as<int>();
-        G = doc["colorArray"][thisY][1].as<int>();
-        B = doc["colorArray"][thisY][2].as<int>();
-      };
-      Serial.println(String(R) + "\t" + String(G) + "\t" + String(B));
+    // Serial.println("xLine: " + doc["xLine"].as<String>());
 
-      thisPannello.drawPixel(
-        doc["xLine"].as<int>(), 
-        thisY, 
-        thisPannello.Color(R,G,B)
-      );
+    // for(int thisY = 0; thisY < 8; thisY++) {
+    //   int R,G,B;
+    //   if(doc["colorArray"][thisY].size() < 3) {
+    //     R = 255;
+    //     G = 255;
+    //     B = 255;
+    //   } else {
+    //     R = doc["colorArray"][thisY][0].as<int>();
+    //     G = doc["colorArray"][thisY][1].as<int>();
+    //     B = doc["colorArray"][thisY][2].as<int>();
+    //   };
+    //   Serial.println(String(R) + "\t" + String(G) + "\t" + String(B));
 
-      thisPannello.show();
-    };
+    //   thisPannello.drawPixel(
+    //     doc["xLine"].as<int>(), 
+    //     thisY, 
+    //     thisPannello.Color(R,G,B)
+    //   );
 
-    doc.clear();
+    //   thisPannello.show();
+    // };
+
+    // doc.clear();
   });
 
   server.addHandler(&ws);
