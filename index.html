@@ -66,8 +66,8 @@
         const canvasTotalWidth = thisHtmlCanvas.width;
         const canvasTotalHeight = thisHtmlCanvas.height;
 
-        const canvasPartWidth = canvasTotalWidth / (x - 1);
-        const canvasPartHeight = (canvasTotalHeight / y);
+        const canvasPartWidth = canvasTotalWidth / x;
+        const canvasPartHeight = canvasTotalHeight / y;
 
         const result = [];
 
@@ -106,7 +106,9 @@
                 result[forX][forY] = imgAverageColorPicker.getColor(thisPartImage);
               } catch (err) { }
               if (forY == y - 1) {
-                ws.send(JSON.stringify({ xLine: forX, colorArray: result[forX] }));
+                setTimeout(() => {
+                  ws.send(JSON.stringify({ xLine: forX, colorArray: result[forX] }));
+                }, 1000 * forX)
               };
               if (forY == y - 1 && forX == x - 1) resolve(result);
             })
