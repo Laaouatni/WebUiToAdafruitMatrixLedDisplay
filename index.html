@@ -116,10 +116,6 @@
             const thisPartImage = new Image(thisPartCanvas.width, thisPartCanvas.height);
             thisPartImage.src = thisPartCanvas.toDataURL();
 
-            document.querySelector("#images").append(`${forY} ${forX}`);
-            document.querySelector("#images").appendChild(thisPartImage);
-
-
             thisPartImage.addEventListener("load", () => {
               try {
                 console.log(forY, forX, result)
