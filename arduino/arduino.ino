@@ -2,11 +2,13 @@
 #include <ArduinoJson.h>
 #include <Adafruit_NeoMatrix.h>
 
-Adafruit_NeoMatrix thisPannello = Adafruit_NeoMatrix(8,8,6,NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG);
+Adafruit_NeoMatrix thisPannello = Adafruit_NeoMatrix(32,8,6,NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG);
 SoftwareSerial Serial2(2, 3);  // RX, TX
+StaticJsonDocument<512> doc;
 
 void setup() {
   thisPannello.begin();
+  thisPannello.fill(0);
   Serial2.begin(4800);
   Serial.begin(4800);
   thisPannello.setBrightness(10);
@@ -17,7 +19,6 @@ void loop() {
 }
 
 void myCallback(String esp32value) {
-  StaticJsonDocument<256> doc;
   DeserializationError error = deserializeJson(doc, esp32value);
 
   if (error) {
@@ -51,8 +52,6 @@ void myCallback(String esp32value) {
 
 
   // Serial.println("⬅️ ho ricevuto un messaggio: " + esp32value);
-
-  doc.clear();
 };
 
 String listenToNewSerialData(void (*myCallback)(String)) {
