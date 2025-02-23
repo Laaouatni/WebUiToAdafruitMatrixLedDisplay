@@ -19,20 +19,29 @@
     <div class="absolute w-[10px] h-[10px] bg-blue-500 top-[00px] left-[240px]"></div>
   </main>
 
-  <div id="images" class="flex"></div>
+  <button id="sendBtn" class="border border-green-500 bg-green-200 p-4 rounded shadow-lg shadow-green-500">click to
+    send</button>
 </body>
 
 <script>
-  const ws = new WebSocket("ws://192.168.162.49/ws");
-  ws.onopen = () => {
-    console.log("connected");
-  };
+  const ipEsp32 = '192.168.204.49';
+  const ws = new WebSocket(`ws://${ipEsp32}/ws`);
 
-  convertUItoMatrixArrayOfColorsWithResolution(
-    document.querySelector("main") || document.body,
-    32,
-    8,
-  ).then((array) => ws.send("hello"));
+  document.getElementById("sendBtn").addEventListener("click", sendBtnClick);
+
+  ws.addEventListener("close", () => {
+    window.location.reload();
+  });
+
+  function sendBtnClick() {
+    convertUItoMatrixArrayOfColorsWithResolution(
+      document.querySelector("main") || document.body,
+      32,
+      8,
+    ).then((array) => {
+      ws.send("hello")
+    });
+  };
 
   const imgAverageColorPicker = new ColorThief();
   /**
@@ -40,13 +49,12 @@
    * @param {HTMLElement} htmlElement
    * @param {number} x
    * @param {number} y
-   * @param {unknown} options
+   * @param {never} options
  */
   function convertUItoMatrixArrayOfColorsWithResolution(
     htmlElement,
     x,
     y,
-    options = {},
   ) {
     return new Promise((resolve, reject) => {
       html2canvas(htmlElement).then((thisHtmlCanvas) => {
@@ -55,7 +63,7 @@
         const canvasTotalWidth = thisHtmlCanvas.width;
         const canvasTotalHeight = thisHtmlCanvas.height;
 
-        const canvasPartWidth = canvasTotalWidth / (x-1);
+        const canvasPartWidth = canvasTotalWidth / (x - 1);
         const canvasPartHeight = (canvasTotalHeight / y);
 
         const result = [];
@@ -86,8 +94,8 @@
             thisPartImage.addEventListener("load", () => {
               try {
                 result[forY][forX] = imgAverageColorPicker.getColor(thisPartImage);
-              } catch(err) {}
-              if (forY == y-1 && forX == x-1) resolve(result);
+              } catch (err) { }
+              if (forY == y - 1 && forX == x - 1) resolve(result);
             })
           }
         }
