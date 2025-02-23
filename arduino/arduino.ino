@@ -20,11 +20,11 @@ void myCallback(String esp32value) {
     return;
   }
 
-  for(int y = 0; y < doc.size(); y++) {
-    for(int x = 0; x < doc[y].size(); x++) {
-      Serial.println(doc[y][x].as<String>());
-    }
-  }
+  // for(int y = 0; y < doc.size(); y++) {
+  //   for(int x = 0; x < doc[y].size(); x++) {
+  //     Serial.println(doc[y][x].as<String>());
+  //   }
+  // }
 
   Serial.println("⬅️ ho ricevuto un messaggio: " + esp32value);
 
