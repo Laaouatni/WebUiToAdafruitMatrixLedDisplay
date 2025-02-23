@@ -11,7 +11,7 @@
   <script defer src="./script.js"></script>
 </head>
 
-<body class="p-4 grid">
+<body class="p-4 grid gap-4">
   <main class="relative w-[300px] h-[80px]">
     <div class="absolute w-[10px] h-[10px] bg-red-500 top-[20px] left-0"></div>
     <div class="absolute w-[10px] h-[10px] bg-red-500 top-[70px] left-0"></div>
@@ -24,7 +24,7 @@
 </body>
 
 <script>
-  const ipEsp32 = '192.168.204.49';
+  const ipEsp32 = '192.168.162.49';
   const ws = new WebSocket(`ws://${ipEsp32}/ws`);
 
   document.getElementById("sendBtn").addEventListener("click", sendBtnClick);
@@ -39,7 +39,7 @@
       32,
       8,
     ).then((array) => {
-      ws.send("hello")
+      ws.send(JSON.stringify(array));
     });
   };
 
@@ -93,7 +93,7 @@
 
             thisPartImage.addEventListener("load", () => {
               try {
-                result[forY][forX] = imgAverageColorPicker.getColor(thisPartImage);
+                result[forY][forX] = imgAverageColorPicker.getColor(thisPartImage) || 0;
               } catch (err) { }
               if (forY == y - 1 && forX == x - 1) resolve(result);
             })
