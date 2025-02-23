@@ -2,21 +2,18 @@
 #include <ArduinoJson.h>
 #include <Adafruit_NeoMatrix.h>
 
-// Adafruit_NeoMatrix thisPannello = Adafruit_NeoMatrix(32,8,6,NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG);
+Adafruit_NeoMatrix thisPannello = Adafruit_NeoMatrix(32,8,6,NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG);
 SoftwareSerial Serial2(2, 3);  // RX, TX
 
 void setup() {
-  // thisPannello.begin();
+  thisPannello.begin();
   Serial2.begin(4800);
   Serial.begin(4800);
-  // thisPannello.setBrightness(10);
+  thisPannello.setBrightness(10);
 }
 
 void loop() {
   listenToNewSerialData(&myCallback);
-  // thisPannello.fill(0);
-  // thisPannello.drawPixel(7,7, thisPannello.Color(100,100,100));
-  // thisPannello.show();
 }
 
 void myCallback(String esp32value) {
@@ -42,17 +39,16 @@ void myCallback(String esp32value) {
       B = doc["colorArray"][thisY][2].as<int>();
     };
     Serial.println(String(R) + "\t" + String(G) + "\t" + String(B));
+
+    thisPannello.drawPixel(
+      doc["xLine"].as<int>(), 
+      thisY, 
+      thisPannello.Color(R,G,B)
+    );
+
+    thisPannello.show();
   };
 
-
-  //   thisPannello.drawPixel(
-  //     doc["xLine"], 
-  //     thisY, 
-  //     thisPannello.Color(R,G,B)
-  //   );
-  // };
-
-  // thisPannello.show();
 
   // Serial.println("⬅️ ho ricevuto un messaggio: " + esp32value);
 
