@@ -12,13 +12,13 @@ void loop() {
 }
 
 void myCallback(String esp32value) {
-  JsonDocument doc;
-  DeserializationError error = deserializeJson(doc, esp32value);
-  if (error) {
-    Serial.print("deserializeJson() failed: ");
-    Serial.println(error.c_str());
-    return;
-  }
+  // JsonDocument doc;
+  // DeserializationError error = deserializeJson(doc, esp32value);
+  // if (error) {
+  //   Serial.print("deserializeJson() failed: ");
+  //   Serial.println(error.c_str());
+  //   return;
+  // }
 
   // for(int y = 0; y < doc.size(); y++) {
   //   for(int x = 0; x < doc[y].size(); x++) {
@@ -28,7 +28,7 @@ void myCallback(String esp32value) {
 
   Serial.println("⬅️ ho ricevuto un messaggio: " + esp32value);
 
-  doc.clear();
+  // doc.clear();
 };
 
 String listenToNewSerialData(void (*myCallback)(String)) {

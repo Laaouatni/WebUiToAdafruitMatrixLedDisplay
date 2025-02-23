@@ -13,12 +13,16 @@
 
 <body class="p-4 grid gap-4">
   <main class="relative w-[300px] h-[80px] bg-black">
-    <div class="bg-red-600 h-full w-[50%]"></div>
+    <div class="absolute bg-green-500 h-full w-[33.33%] left-[calc(33.3%*0)]"></div>
+    <div class="absolute bg-white h-full w-[33.33%] left-[calc(33.3%*1)]"></div>
+    <div class="absolute bg-red-500 h-full w-[33.33%] left-[calc(33.3%*2)]"></div>
     <!-- <div class="absolute w-[10px] h-[10px] bg-red-500 top-[20px] left-0"></div>
     <div class="absolute w-[10px] h-[10px] bg-red-500 top-[70px] left-0"></div>
     <div class="absolute w-[10px] h-[10px] bg-green-500 top-[70px] left-[290px]"></div>
     <div class="absolute w-[10px] h-[10px] bg-blue-500 top-[00px] left-[240px]"></div> -->
   </main>
+
+  <div id="images"></div>
 
   <button id="sendBtn" class="border border-green-500 bg-green-200 p-4 rounded shadow-lg shadow-green-500">click to
     send</button>
@@ -88,15 +92,14 @@
 
             const thisPartImage = new Image(thisPartCanvas.width, thisPartCanvas.height);
             thisPartImage.src = thisPartCanvas.toDataURL();
-            thisPartImage.classList.add("outline");
 
             thisPartImage.addEventListener("load", () => {
               try {
-                console.log(forX, forY,result)
+                console.log(forX, forY, result)
                 result[forX][forY] = imgAverageColorPicker.getColor(thisPartImage);
               } catch (err) { }
-              if(forY == y - 1) {
-                ws.send(JSON.stringify({xLine:forX, colorArray:result[forX]}));
+              if (forY == y - 1) {
+                ws.send(JSON.stringify({ xLine: forX, colorArray: result[forX] }));
               };
               if (forY == y - 1 && forX == x - 1) resolve(result);
             })
