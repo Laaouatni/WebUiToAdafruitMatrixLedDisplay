@@ -22,7 +22,7 @@
     <div class="absolute w-[10px] h-[10px] bg-blue-500 top-[00px] left-[240px]"></div> -->
   </main>
 
-  <div id="images"></div>
+  <div id="images" class="flex"></div>
 
   <button id="sendBtn" class="border border-green-500 bg-green-200 p-4 rounded shadow-lg shadow-green-500">click to
     send</button>
@@ -92,6 +92,13 @@
 
             const thisPartImage = new Image(thisPartCanvas.width, thisPartCanvas.height);
             thisPartImage.src = thisPartCanvas.toDataURL();
+            thisPartImage.width = thisPartCanvas.width;
+            thisPartImage.height = thisPartCanvas.height;
+            thisPartImage.style = "outline: 1px solid black"
+
+            document.querySelector("#images").append(`${forX} ${forY} `);
+            document.querySelector("#images").appendChild(thisPartImage);
+            
 
             thisPartImage.addEventListener("load", () => {
               try {
