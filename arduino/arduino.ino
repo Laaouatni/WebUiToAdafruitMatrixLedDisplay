@@ -13,10 +13,10 @@ void setup() {
 }
 
 void loop() {
-  // listenToNewSerialData(&myCallback);
-  thisPannello.fill(0);
-  thisPannello.drawPixel(7,7, thisPannello.Color(100,100,100));
-  thisPannello.show();
+  listenToNewSerialData(&myCallback);
+  // thisPannello.fill(0);
+  // thisPannello.drawPixel(7,7, thisPannello.Color(100,100,100));
+  // thisPannello.show();
 }
 
 void myCallback(String esp32value) {
@@ -36,15 +36,17 @@ void myCallback(String esp32value) {
 
   for(int thisY = 0; thisY < 8; thisY++) {
     int R,G,B;
-    if(doc["colorArray"][thisY].size() < 3) {
+    // if(doc["colorArray"][thisY].size() < 3) {
       R = 255;
       G = 255;
       B = 255;
-    } else {
-      R = doc["colorArray"][thisY][0];
-      G = doc["colorArray"][thisY][1];
-      B = doc["colorArray"][thisY][2];
-    }
+    // } else {
+    //   R = doc["colorArray"][thisY][0];
+    //   G = doc["colorArray"][thisY][1];
+    //   B = doc["colorArray"][thisY][2];
+    // };
+
+    Serial.println(String(R) + "\t" + String(G) + "\t" + String(B));
 
     thisPannello.drawPixel(
       doc["xLine"], 
@@ -54,11 +56,10 @@ void myCallback(String esp32value) {
   };
 
   thisPannello.show();
-  thisPannello.fill(0);
 
-  Serial.println("⬅️ ho ricevuto un messaggio: " + esp32value);
+  // Serial.println("⬅️ ho ricevuto un messaggio: " + esp32value);
 
-  doc.clear();
+  // doc.clear();
 };
 
 String listenToNewSerialData(void (*myCallback)(String)) {
