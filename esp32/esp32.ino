@@ -32,7 +32,7 @@ void setup() {
 
     const String thisStringData = String((char *)data).substring(0, len);
 
-    Serial.println(thisStringData);
+    // Serial.println(thisStringData);
     DeserializationError error = deserializeJson(doc, thisStringData);
 
     if(error) {
@@ -40,7 +40,7 @@ void setup() {
       return;
     };
 
-    Serial.println("yLine: " + doc["yLine"].as<String>());
+    // Serial.println("yLine: " + doc["yLine"].as<String>());
 
     for(int thisX = 0; thisX < 32; thisX++) {
       int R,G,B;
@@ -53,16 +53,15 @@ void setup() {
         G = doc["colorArray"][thisX][1].as<int>();
         B = doc["colorArray"][thisX][2].as<int>();
       };
-      Serial.println(String(R) + "\t" + String(G) + "\t" + String(B));
+      // Serial.println(String(R) + "\t" + String(G) + "\t" + String(B));
 
       thisPannello.drawPixel(
         thisX, 
         doc["yLine"].as<int>(), 
         thisPannello.Color(R,G,B)
       );
-
-      thisPannello.show();
     };
+    thisPannello.show();
 
     doc.clear();
   });
