@@ -12,11 +12,11 @@
 </head>
 
 <body class="p-4 grid gap-4">
-  <main class="relative w-[300px] h-[80px]">
-    <div class="absolute w-[10px] h-[10px] bg-red-500 top-[20px] left-0"></div>
+  <main class="relative w-[300px] h-[80px] bg-red-500">
+    <!-- <div class="absolute w-[10px] h-[10px] bg-red-500 top-[20px] left-0"></div>
     <div class="absolute w-[10px] h-[10px] bg-red-500 top-[70px] left-0"></div>
     <div class="absolute w-[10px] h-[10px] bg-green-500 top-[70px] left-[290px]"></div>
-    <div class="absolute w-[10px] h-[10px] bg-blue-500 top-[00px] left-[240px]"></div>
+    <div class="absolute w-[10px] h-[10px] bg-blue-500 top-[00px] left-[240px]"></div> -->
   </main>
 
   <button id="sendBtn" class="border border-green-500 bg-green-200 p-4 rounded shadow-lg shadow-green-500">click to
@@ -93,8 +93,7 @@
 
             thisPartImage.addEventListener("load", () => {
               try {
-                const thisAverageColor = imgAverageColorPicker.getColor(thisPartImage);
-                result[forY][forX] = thisAverageColor != null ? thisAverageColor : 0;
+                result[forY][forX] = imgAverageColorPicker.getColor(thisPartImage);
               } catch (err) { }
               if (forY == y - 1 && forX == x - 1) resolve(result);
             })
