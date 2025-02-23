@@ -66,9 +66,9 @@
 
         const result = [];
 
-        for (let forY = 0; forY < y; forY++) {
-          result[forY] = [];
-          for (let forX = 0; forX < x; forX++) {
+        for (let forX = 0; forX < x; forX++) {
+          result[forX] = [];
+          for (let forY = 0; forY < y; forY++) {
             const x0 = forX * canvasPartWidth;
             const y0 = forY * canvasPartHeight;
 
@@ -93,9 +93,9 @@
               try {
                 result[forY][forX] = imgAverageColorPicker.getColor(thisPartImage);
               } catch (err) { }
-              if(forX == x - 1) {
+              if(forY == y - 1) {
                 // ws.send(JSON.stringify({a:0}))
-                ws.send(JSON.stringify({yLine:forY, colorArray:result[forY]}));
+                ws.send(JSON.stringify({xLine:forX, colorArray:result[forX]}));
               };
               if (forY == y - 1 && forX == x - 1) resolve(result);
             })
