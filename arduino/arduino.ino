@@ -30,25 +30,20 @@ void myCallback(String esp32value) {
 
   Serial.println("xLine: " + doc["xLine"].as<String>());
 
-  // for(int y = 0; y < doc.size(); y++) {
-  //   for(int x = 0; x < doc[y].size(); x++) {
-  //     Serial.println(doc[y][x].as<String>());
-  //   }
-  // }
+  for(int thisY = 0; thisY < 8; thisY++) {
+    int R,G,B;
+    if(doc["colorArray"][thisY].size() < 3) {
+      R = 255;
+      G = 255;
+      B = 255;
+    } else {
+      R = doc["colorArray"][thisY][0].as<int>();
+      G = doc["colorArray"][thisY][1].as<int>();
+      B = doc["colorArray"][thisY][2].as<int>();
+    };
+    Serial.println(String(R) + "\t" + String(G) + "\t" + String(B));
+  };
 
-  // for(int thisY = 0; thisY < 8; thisY++) {
-  //   int R,G,B;
-  //   // if(doc["colorArray"][thisY].size() < 3) {
-  //     R = 255;
-  //     G = 255;
-  //     B = 255;
-  //   // } else {
-  //   //   R = doc["colorArray"][thisY][0];
-  //   //   G = doc["colorArray"][thisY][1];
-  //   //   B = doc["colorArray"][thisY][2];
-  //   // };
-
-  //   Serial.println(String(R) + "\t" + String(G) + "\t" + String(B));
 
   //   thisPannello.drawPixel(
   //     doc["xLine"], 
