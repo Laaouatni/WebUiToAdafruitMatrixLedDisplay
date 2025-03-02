@@ -11,107 +11,111 @@
 </head>
 
 <body class="p-4 grid gap-4">
-  <main style="zoom:3; background-position: 0 -80px;" 
-        class="outline relative flex w-[300px] h-[80px] justify-between transition-all">
+  <main style="zoom:20;" class="outline relative flex w-[30px] h-[8px] justify-between transition-all">
+    <img src="./img/ipiaCesarePesenti.jpg">
   </main>
 </body>
 
 <script>
-  const ipEsp32 = '192.168.162.49';
-  const ws = new WebSocket(`ws://${ipEsp32}/ws`);
+  // const ipEsp32 = '127.0.0.1:5500/index.html';
+  // const ws = new WebSocket(`ws://${ipEsp32}/ws`);
 
-  ws.addEventListener("close", () => {
-    window.location.reload();
-  });
+  // ws.addEventListener("close", () => {
+  //   window.location.reload();
+  // });
 
-  ws.addEventListener("open", () => {
-    setTimeout(() => {
-      convertUItoMatrixArrayOfColorsWithResolution(
-        document.querySelector("main") || document.body,
-        32,
-        8,
-      );
-    })
-  
-    setInterval(() => {
-      const mainElement = document.querySelector("main");
-      mainElement.style.backgroundImage = `linear-gradient(90deg, hsl(${Math.random() * 360}, 100%, 50%), hsl(${Math.random() * 360}, 100%, 50%))`;
+  // ws.addEventListener("open", () => {
+  //   setTimeout(() => {
+  //     convertUItoMatrixArrayOfColorsWithResolution(
+  //       document.querySelector("main") || document.body,
+  //       32,
+  //       8,
+  //     );
+  //   })
 
-      convertUItoMatrixArrayOfColorsWithResolution(
-        document.querySelector("main") || document.body,
-        32,
-        8,
-      );
-    }, (200 * 8));
-  });
+  //   // setInterval(() => {
+  //   //   // const mainElement = document.querySelector("main");
+  //   //   // mainElement.style.backgroundImage = `linear-gradient(90deg, hsl(${Math.random() * 360}, 100%, 50%), hsl(${Math.random() * 360}, 100%, 50%))`;
+
+  //   //   convertUItoMatrixArrayOfColorsWithResolution(
+  //   //     document.querySelector("main") || document.body,
+  //   //     32,
+  //   //     8,
+  //   //   );
+  //   // }, (200 * 8));
+  // });
 
 
-  function sendBtnClick() {
-    convertUItoMatrixArrayOfColorsWithResolution(
-      document.querySelector("main") || document.body,
-      32,
-      8,
-    );
-  };
+  // function sendBtnClick() {
+  //   convertUItoMatrixArrayOfColorsWithResolution(
+  //     document.querySelector("main") || document.body,
+  //     32,
+  //     8,
+  //   );
+  // };
 
-  const imgAverageColorPicker = new ColorThief();
+  // const imgAverageColorPicker = new ColorThief();
 
-  function convertUItoMatrixArrayOfColorsWithResolution(
-    htmlElement,
-    x,
-    y,
-  ) {
-    return new Promise((resolve, reject) => {
-      html2canvas(htmlElement).then((thisHtmlCanvas) => {
-        const thisHtmlCtx = thisHtmlCanvas.getContext("2d", { willReadFrequently: true });
+  // function convertUItoMatrixArrayOfColorsWithResolution(
+  //   htmlElement,
+  //   x,
+  //   y,
+  // ) {
+  //   return new Promise((resolve, reject) => {
+  //     const clonedElement = htmlElement.cloneNode(true);
+  //     clonedElement.style.zoom = "100% !important";
 
-        const canvasTotalWidth = thisHtmlCanvas.width;
-        const canvasTotalHeight = thisHtmlCanvas.height;
+  //     // html2canvas(clonedElement).then((thisHtmlCanvas) => {
+  //     html2canvas(htmlElement).then((thisHtmlCanvas) => {
+  //       const thisHtmlCtx = thisHtmlCanvas.getContext("2d", { willReadFrequently: true });
 
-        const canvasPartWidth = canvasTotalWidth / x;
-        const canvasPartHeight = canvasTotalHeight / y;
+  //       const canvasTotalWidth = thisHtmlCanvas.width;
+  //       const canvasTotalHeight = thisHtmlCanvas.height;
 
-        const result = [];
+  //       const canvasPartWidth = canvasTotalWidth / x;
+  //       const canvasPartHeight = canvasTotalHeight / y;
 
-        for (let forY = 0; forY < y; forY++) {
-          result[forY] = [];
-          for (let forX = 0; forX < x; forX++) {
-            const x0 = forX * canvasPartWidth;
-            const y0 = forY * canvasPartHeight;
+  //       const result = [];
 
-            const thisPartCanvas = document.createElement("canvas");
-            thisPartCanvas.width = canvasPartWidth;
-            thisPartCanvas.height = canvasPartHeight;
-            const thisPartCtx = thisPartCanvas.getContext("2d");
+  //       for (let forY = 0; forY < y; forY++) {
+  //         result[forY] = [];
+  //         for (let forX = 0; forX < x; forX++) {
+  //           const x0 = forX * canvasPartWidth;
+  //           const y0 = forY * canvasPartHeight;
 
-            thisPartCtx.putImageData(
-              thisHtmlCtx.getImageData(
-                x0, y0,
-                thisPartCanvas.width, thisPartCanvas.height
-              ),
-              0, 0
-            );
+  //           const thisPartCanvas = document.createElement("canvas");
+  //           thisPartCanvas.width = canvasPartWidth;
+  //           thisPartCanvas.height = canvasPartHeight;
+  //           const thisPartCtx = thisPartCanvas.getContext("2d");
 
-            const thisPartImage = new Image(thisPartCanvas.width, thisPartCanvas.height);
-            thisPartImage.src = thisPartCanvas.toDataURL();
+  //           thisPartCtx.putImageData(
+  //             thisHtmlCtx.getImageData(
+  //               x0, y0,
+  //               thisPartCanvas.width, thisPartCanvas.height
+  //             ),
+  //             0, 0
+  //           );
 
-            thisPartImage.addEventListener("load", () => {
-              try {
-                console.log(forY, forX, result)
-                result[forY][forX] = imgAverageColorPicker.getColor(thisPartImage);
-              } catch (err) { }
-              if (forX == x - 1) {
-                ws.send(JSON.stringify({ yLine: forY, colorArray: result[forY] }));
-              };
-              if (forY == y - 1 && forX == x - 1) {
-                resolve(result);
-              }
-            })
-          }
-        }
-      })
-    })
-  }
+  //           const thisPartImage = new Image(thisPartCanvas.width, thisPartCanvas.height);
+  //           thisPartImage.src = thisPartCanvas.toDataURL();
+
+  //           thisPartImage.addEventListener("load", () => {
+  //             try {
+  //               console.log(forY, forX, result)
+  //               result[forY][forX] = imgAverageColorPicker.getColor(thisPartImage);
+  //             } catch (err) { }
+  //             if (forX == x - 1) {
+  //               ws.send(JSON.stringify({ yLine: forY, colorArray: result[forY] }));
+  //             };
+  //             if (forY == y - 1 && forX == x - 1) {
+  //               resolve(result);
+  //             }
+  //           })
+  //         }
+  //       }
+  //     })
+  //   })
+  // }
 </script>
 
 </html>
