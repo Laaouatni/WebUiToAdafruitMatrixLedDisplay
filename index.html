@@ -51,7 +51,6 @@
             B: thisUint8ClampedArray[redIndex + 2],
             A: thisUint8ClampedArray[redIndex + 3],
           };
-          
           (() => {
             if (forPixelIndex == 0) {
               result[positionOfObject.y] = [];
@@ -65,12 +64,9 @@
             }
             positionOfObject.x++;
           })();
-
-          console.log(forPixelIndex, positionOfObject)
           result[positionOfObject.y][positionOfObject.x] = pixelColorObject;
-
         }
-        // console.log(result);
+        console.log(result);
       });
     });
   }
