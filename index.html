@@ -11,7 +11,7 @@
 </head>
 
 <body class="p-4 grid gap-4">
-  <main class="outline relative flex w-full aspect-[32/8] justify-between transition-all">
+  <main class="relative flex w-full aspect-[32/8] justify-between transition-all">
     <img src="./img/ipiaCesarePesenti.jpg">
     <div class="bg-red-500 h-full w-20"></div>
     <div class="bg-green-500 h-full w-20"></div>
@@ -22,6 +22,28 @@
 </body>
 
 <script>
+  convertUItoMatrixArrayOfColorsWithResolution(
+    document.querySelector("main") || document.body,
+    32,
+    8,
+  );
+
+  function convertUItoMatrixArrayOfColorsWithResolution(
+    paramHtmlElement,
+    paramWidth,
+    paramHeight,
+  ) {
+    return new Promise((res, rej) => {
+      const clonedHtmlElement = paramHtmlElement.cloneNode(true);
+      clonedHtmlElement.style.height = `${paramHeight}px`;
+      clonedHtmlElement.style.width = `${paramWidth}px`;
+      document.body.appendChild(clonedHtmlElement);
+      html2canvas(htmlElement).then((thisHtmlCanvas) => {
+        const thisHtmlCtx = thisHtmlCanvas.getContext("2d");
+
+      });
+    });
+  }
   // const ipEsp32 = '127.0.0.1:5500/index.html';
   // const ws = new WebSocket(`ws://${ipEsp32}/ws`);
 
