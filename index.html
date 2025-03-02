@@ -26,7 +26,7 @@
     document.querySelector("main") || document.body,
     32,
     8,
-  );
+  ).then(console.log)
 
   function convertUItoMatrixArrayOfColorsWithResolution(
     paramHtmlElement,
@@ -66,10 +66,10 @@
           })();
           result[positionOfObject.y][positionOfObject.x] = pixelColorObject;
         }
-        console.log(result);
+        res(result);
       });
     });
-  }
+  };
   // const ipEsp32 = '127.0.0.1:5500/index.html';
   // const ws = new WebSocket(`ws://${ipEsp32}/ws`);
 
