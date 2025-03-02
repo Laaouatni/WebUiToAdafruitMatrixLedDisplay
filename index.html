@@ -42,8 +42,11 @@
         const thisHtmlCtx = thisHtmlCanvas.getContext("2d");
         const thisUint8ClampedArray = thisHtmlCtx.getImageData(0, 0, thisHtmlCanvas.width, thisHtmlCanvas.height).data;
         let result = [];
-        let arrayPixelColors = [];
-        for(let forPixelIndex = 0; forPixelIndex < (paramWidth*paramHeight); forPixelIndex++) {
+        let positionOfObject = { x: 0, y: 0 };
+        for (let forPixelIndex = 0; forPixelIndex < (paramWidth * paramHeight); forPixelIndex++) {
+          if(result[positionOfObject.y] == undefined) {
+            result[positionOfObject.y] = [];
+          };
           const redIndex = forPixelIndex * 4;
           const pixelColorObject = {
             R: thisUint8ClampedArray[redIndex],
@@ -51,11 +54,22 @@
             B: thisUint8ClampedArray[redIndex + 2],
             A: thisUint8ClampedArray[redIndex + 3],
           }
-          const y = Math.floor(forPixelIndex/paramWidth);
-          console.log(forPixelIndex, y);
-          // arrayPixelColors[forPixelIndex] = pixelColorObject;
+          result[positionOfObject.y][positionOfObject.x] = pixelColorObject;
+
+          if(forPixelIndex == 0) {
+
+          } else
+          if(forPixelIndex % paramWidth == 0) {
+            positionOfObject.y++;
+            positionOfObject.x = 0;
+          } else {
+            positionOfObject.x++;
+          };
+
+          console.log(forPixelIndex,positionOfObject)
+          
         }
-        // console.log(arrayPixelColors);
+        // console.log(result);
       });
     });
   }
