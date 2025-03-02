@@ -36,8 +36,16 @@
   ) {
     return new Promise((res, rej) => {
       const clonedHtmlElement = paramHtmlElement.cloneNode(true);
-      clonedHtmlElement.style.height = `${paramHeight}px`;
-      clonedHtmlElement.style.width = `${paramWidth}px`;
+      const styles = {
+        height: `${paramHeight}px`,
+        width: `${paramWidth}px`,
+        position: "fixed",
+        aspectRatio: "unset",
+        get left() {return `-${this.width}`},
+      }
+      Object.keys(styles).forEach((key) => {
+        clonedHtmlElement.style[key] = styles[key];
+      });
       document.body.appendChild(clonedHtmlElement);
       html2canvas(clonedHtmlElement).then((thisHtmlCanvas) => {
         const thisHtmlCtx = thisHtmlCanvas.getContext("2d");
