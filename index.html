@@ -22,17 +22,13 @@
 
 <script>
   const start = Date.now();
-  convertUItoMatrixArrayOfColorsWithResolution(
-    document.querySelector("main") || document.body,
-    32,
-    8,
-  ).then(console.log)
+  convertUItoMatrixArrayOfColorsWithResolution(document.querySelector("main") || document.body).then(console.log)
   console.log(Date.now() - start);
 
   function convertUItoMatrixArrayOfColorsWithResolution(
     paramHtmlElement,
-    paramWidth,
-    paramHeight,
+    paramWidth = 32,
+    paramHeight = 8,
   ) {
     return new Promise((res, rej) => {
       const clonedHtmlElement = paramHtmlElement.cloneNode(true);
@@ -41,7 +37,7 @@
         width: `${paramWidth}px`,
         position: "fixed",
         aspectRatio: "unset",
-        get left() {return `-${this.width}`},
+        get left() { return `-${this.width}` },
       }
       Object.entries(styles).forEach(([key, value]) => {
         clonedHtmlElement.style[key] = value;
