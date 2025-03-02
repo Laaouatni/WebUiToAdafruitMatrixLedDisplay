@@ -41,6 +41,7 @@
       html2canvas(clonedHtmlElement).then((thisHtmlCanvas) => {
         const thisHtmlCtx = thisHtmlCanvas.getContext("2d");
         const thisUint8ClampedArray = thisHtmlCtx.getImageData(0, 0, thisHtmlCanvas.width, thisHtmlCanvas.height).data;
+        let arrayPixelColors = [];
         for(let forPixelIndex = 0; forPixelIndex < (paramWidth*paramHeight); forPixelIndex++) {
           const redIndex = forPixelIndex * 4;
           const pixelColorObject = {
@@ -49,7 +50,9 @@
             B: thisUint8ClampedArray[redIndex + 2],
             A: thisUint8ClampedArray[redIndex + 3],
           }
+          arrayPixelColors[forPixelIndex] = pixelColorObject;
         }
+        console.log(arrayPixelColors);
       });
     });
   }
