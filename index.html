@@ -51,7 +51,7 @@
             B: thisUint8ClampedArray[redIndex + 2],
             A: thisUint8ClampedArray[redIndex + 3],
           }
-          const y = forPixelIndex/paramWidth;
+          const y = Math.floor(forPixelIndex/paramWidth);
           console.log(forPixelIndex, y);
           // arrayPixelColors[forPixelIndex] = pixelColorObject;
         }
