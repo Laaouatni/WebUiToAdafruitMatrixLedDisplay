@@ -38,9 +38,9 @@
       clonedHtmlElement.style.height = `${paramHeight}px`;
       clonedHtmlElement.style.width = `${paramWidth}px`;
       document.body.appendChild(clonedHtmlElement);
-      html2canvas(htmlElement).then((thisHtmlCanvas) => {
+      html2canvas(clonedHtmlElement).then((thisHtmlCanvas) => {
         const thisHtmlCtx = thisHtmlCanvas.getContext("2d");
-
+        console.log(thisHtmlCtx.getImageData(0, 0, thisHtmlCanvas.width, thisHtmlCanvas.height));
       });
     });
   }
