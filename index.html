@@ -41,6 +41,9 @@
       html2canvas(clonedHtmlElement).then((thisHtmlCanvas) => {
         const thisHtmlCtx = thisHtmlCanvas.getContext("2d");
         const thisUint8ClampedArray = thisHtmlCtx.getImageData(0, 0, thisHtmlCanvas.width, thisHtmlCanvas.height).data;
+        for(let forPixelIndex = 0; forPixelIndex < (paramWidth*paramHeight); forPixelIndex++) {
+          console.log(forPixelIndex)
+        }
       });
     });
   }
