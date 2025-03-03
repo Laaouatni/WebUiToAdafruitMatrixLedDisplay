@@ -33,7 +33,7 @@ void setup() {
     [](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total) {
       const String thisStringData = String((char*)data).substring(0, len);
 
-      Serial.println("stringa: " + String(index) + "\t" + thisStringData);
+      Serial.println("stringa: " + String(index) + "/" + String(total) + "\t" + thisStringData);
 
       DeserializationError error = deserializeJson(doc, thisStringData);
       if(error) {
