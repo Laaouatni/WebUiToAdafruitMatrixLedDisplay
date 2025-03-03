@@ -33,7 +33,7 @@ void setup() {
 
       DeserializationError error = deserializeJson(doc, thisStringData);
       if(error) {
-        request->send(400, "text/plain", "JSON Parsing Error");
+        request->send(400, "text/plain", "JSON Parsing Error: " + String(error.c_str()));
         return;
       }
       JsonArray pixelArrayColors = doc["colorMatrixData"]["arrayColors"];
