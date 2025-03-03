@@ -8,6 +8,8 @@ AsyncWebServer server(80);
 Adafruit_NeoMatrix thisPannello = Adafruit_NeoMatrix(32,8,15,NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG);
 JsonDocument doc;
 
+String completeJsonString = "";
+
 void setup() {
   Serial.begin(115200);
 
@@ -31,7 +33,7 @@ void setup() {
     [](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total) {
       const String thisStringData = String((char*)data).substring(0, len);
 
-      Serial.println("stringa: " + thisStringData);
+      Serial.println("stringa: " + String(index) + "\t" + thisStringData);
 
       DeserializationError error = deserializeJson(doc, thisStringData);
       if(error) {
