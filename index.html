@@ -82,7 +82,7 @@
             }
             positionOfObject.x++;
           })();
-          result[positionOfObject.y][positionOfObject.x] = pixelColorObject;
+          result[positionOfObject.y][positionOfObject.x] = [pixelColorObject.R, pixelColorObject.G, pixelColorObject.B];
         }
         clonedHtmlElement.remove();
         res(result);
