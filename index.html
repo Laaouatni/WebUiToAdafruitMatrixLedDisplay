@@ -11,12 +11,7 @@
 
 <body class="p-4 grid gap-4">
   <main class="relative flex w-full aspect-[32/8] justify-between transition-all">
-    <img src="./img/ipiaCesarePesenti.jpg">
-    <div class="bg-blue-500 h-full w-20"></div>
-    <div class="bg-red-500 h-full w-20"></div>
-    <div class="bg-green-500 h-full w-20"></div>
-    <div class="bg-yellow-500 h-full w-20"></div>
-    <div class="bg-slate-500 h-full w-20"></div>
+    <video class="w-full object-cover" src="./img/INTRO VIDEO WITH COLOUR SMOKE EFFECT __ Tutorial video link & Templates dawnload link In Description.mp4" autoplay loop></video>
   </main>
 </body>
 
@@ -32,8 +27,6 @@
         body: JSON.stringify({
           arrayColors: pixelColorArray,
         }),
-      }).then((response) => {
-        console.log(response);
       })
     }
   )
@@ -85,6 +78,7 @@
           result[positionOfObject.y][positionOfObject.x] = [pixelColorObject.R, pixelColorObject.G, pixelColorObject.B];
         }
         clonedHtmlElement.remove();
+        console.log(result);
         res(result);
       });
     });
