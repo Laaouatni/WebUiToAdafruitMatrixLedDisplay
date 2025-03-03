@@ -21,9 +21,46 @@ void setup() {
   
   DefaultHeaders::Instance().addHeader("Access-Control-Allow-Origin", "*");
 
-  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(200, "text/plain", "Hello, world!");
+  server.on("/data", HTTP_POST, nullptr, nullptr, [](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total){
+    if (!index) {
+      Serial.printf("Upload started: current=%u, total=%u\n", index, total);
+    }
+    Serial.printf("Data: %s\n", data);
+    DynamicJsonDocument doc(10000); // Adjust the size based on your JSON structure
+    DeserializationError error = deserializeJson(doc, data, len);
+    if (error) {
+      Serial.print("deserializeJson() failed: ");
+      Serial.println(error.f_str());
+      request->send(400, "text/plain", "Bad Request");
+      return;
+    }
+
+    // Access the data
+    JsonObject colorMatrixData = doc["colorMatrixData"];
+    JsonObject dimensions = colorMatrixData["dimensions"];
+    JsonArray arrayColors = colorMatrixData["arrayColors"];
+
+    int width = dimensions["width"];
+    int height = dimensions["height"];
+
+    Serial.printf("Dimensions: width=%d, height=%d\n", width, height);
+
+    for (int i = 0; i < height; i++) {
+      JsonArray row = arrayColors[i];
+      for (int j = 0; j < width; j++) {
+        JsonObject color = row[j];
+        int R = color["R"];
+        int G = color["G"];
+        int B = color["B"];
+        int A = color["A"];
+        Serial.printf("Color at (%d, %d): R=%d, G=%d, B=%d, A=%d\n", i, j, R, G, B, A);
+      }
+    }
+
+    request->send(200, "text/plain", "Data received");
   });
+
+  server.begin();
   // server.onNotFound([](AsyncWebServerRequest *request){
   //   String urlPath = request->url();
 
