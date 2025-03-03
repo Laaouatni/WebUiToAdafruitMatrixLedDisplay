@@ -50,9 +50,9 @@ void setup() {
             int G = pixelColor[1];
             int B = pixelColor[2];
 
-            int t1 = millis();
+            long int t1 = millis();
             thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B));
-            int t2 = millis();
+            long int t2 = millis();
             Serial.println("ms: " + String(t2-t1));
           };
         };
