@@ -28,22 +28,21 @@ void setup() {
   });
 
   server.on("/data", HTTP_POST, nullptr, nullptr, [](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total){
-    DeserializationError error = deserializeJson(doc, thisStringData);
-    JsonArray pixelArrayColors = doc["colorMatrixData"]["arrayColors"];
+    // DeserializationError error = deserializeJson(doc, data);
+    // JsonArray pixelArrayColors = doc["colorMatrixData"]["arrayColors"];
     
-    for(int forY = 0; forY < 8; forY++) {
-      JsonArray arrayRigaPannello = pixelArrayColors[forY];
-      for(int forX = 0; forX < 32; forX++) {
-        JsonObject pixelColor = pixelArrayColorsRow[forX];
-        int R = pixelColor["R"];
-        int G = pixelColor["G"];
-        int B = pixelColor["B"];
-        int A = pixelColor["A"];
-        thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B,A));
-      };
-    }
-    thisPannello.show();
-    doc.clear();
+    // for(int forY = 0; forY < 8; forY++) {
+    //   JsonArray arrayRigaPannello = pixelArrayColors[forY];
+    //   for(int forX = 0; forX < 32; forX++) {
+    //     JsonObject pixelColor = arrayRigaPannello[forX];
+    //     int R = pixelColor["R"];
+    //     int G = pixelColor["G"];
+    //     int B = pixelColor["B"];
+    //     thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B));
+    //   };
+    // }
+    // thisPannello.show();
+    // doc.clear();
     request->send(200, "text/plain", "Display updated");
   });
 

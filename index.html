@@ -21,7 +21,7 @@
 </body>
 
 <script>
-  const esp32Ip = "192.168.194.3";
+  const esp32Ip = "192.168.194.3:80";
   convertUItoMatrixArrayOfColorsWithResolution(document.querySelector("main") || document.body).then(
     (pixelColorArray) => {
       fetch(`http://${esp32Ip}/data`, {
