@@ -45,12 +45,12 @@ void setup() {
         for(int forY = 0; forY < 8; forY++) {
           JsonArray arrayRigaPannello = pixelArrayColors[forY];
           for(int forX = 0; forX < 32; forX++) {
+            long int t1 = millis();
             JsonArray pixelColor = arrayRigaPannello[forX];
             int R = pixelColor[0];
             int G = pixelColor[1];
             int B = pixelColor[2];
 
-            long int t1 = millis();
             thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B));
             long int t2 = millis();
             Serial.println("ms: " + String(t2-t1));
