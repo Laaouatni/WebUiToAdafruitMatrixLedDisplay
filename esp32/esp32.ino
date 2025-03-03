@@ -32,30 +32,33 @@ void setup() {
     [](AsyncWebServerRequest *request) {}, NULL,
     [](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total) {
       const String thisStringData = String((char*)data).substring(0, len);
-      Serial.println("stringa: " + String(index+len) + "/" + String(total) + "\t" + thisStringData);
+      completeJsonString += thisStringData;
 
-      DeserializationError error = deserializeJson(doc, thisStringData);
-      if(error) {
-        request->send(400, "text/plain", "JSON Parsing Error: " + String(error.c_str()));
-        return;
-      }
-      JsonArray pixelArrayColors = doc["colorMatrixData"]["arrayColors"];
-      
-      for(int forY = 0; forY < 8; forY++) {
-        JsonArray arrayRigaPannello = pixelArrayColors[forY];
-        for(int forX = 0; forX < 32; forX++) {
-          JsonArray pixelColor = arrayRigaPannello[forX];
-          int R = pixelColor[0];
-          int G = pixelColor[1];
-          int B = pixelColor[2];
-          thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B));
+      if(index+len == total) {
+        DeserializationError error = deserializeJson(doc, completeJsonString);
+        if(error) {
+          request->send(400, "text/plain", "JSON Parsing Error: " + String(error.c_str()));
+          return;
         };
-      }
+        JsonArray pixelArrayColors = doc["colorMatrixData"]["arrayColors"];
+        
+        for(int forY = 0; forY < 8; forY++) {
+          JsonArray arrayRigaPannello = pixelArrayColors[forY];
+          for(int forX = 0; forX < 32; forX++) {
+            JsonArray pixelColor = arrayRigaPannello[forX];
+            int R = pixelColor[0];
+            int G = pixelColor[1];
+            int B = pixelColor[2];
+            thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B));
+          };
+        }
+        
+        thisPannello.show();
+        doc.clear();
+        completeJsonString = "";
       
-      thisPannello.show();
-      doc.clear();
-    
-      request->send(200, "text/plain", "Display updated");
+        request->send(200, "text/plain", "Display updated");
+      };
   });
 
   server.begin();
