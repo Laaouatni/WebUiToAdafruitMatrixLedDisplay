@@ -28,49 +28,26 @@ void setup() {
   });
 
   server.on("/data", HTTP_POST, nullptr, nullptr, [](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total){
-    if (!index) {
-      Serial.printf("Upload started: current=%u, total=%u\n", index, total);
+    DeserializationError error = deserializeJson(doc, thisStringData);
+    JsonArray pixelArrayColors = doc["colorMatrixData"]["arrayColors"];
+    
+    for(int forY = 0; forY < 8; forY++) {
+      JsonArray arrayRigaPannello = pixelArrayColors[forY];
+      for(int forX = 0; forX < 32; forX++) {
+        JsonObject pixelColor = pixelArrayColorsRow[forX];
+        int R = pixelColor["R"];
+        int G = pixelColor["G"];
+        int B = pixelColor["B"];
+        int A = pixelColor["A"];
+        thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B,A));
+      };
     }
-    Serial.printf("Data: %s\n", data);
-    DynamicJsonDocument doc(10000); // Adjust the size based on your JSON structure
-    DeserializationError error = deserializeJson(doc, data, len);
-    if (error) {
-      Serial.print("deserializeJson() failed: ");
-      Serial.println(error.f_str());
-      request->send(400, "text/plain", "Bad Request");
-      return;
-    }
-
-    // Access the data
-    JsonObject colorMatrixData = doc["colorMatrixData"];
-    JsonObject dimensions = colorMatrixData["dimensions"];
-    JsonArray arrayColors = colorMatrixData["arrayColors"];
-
-    int width = dimensions["width"];
-    int height = dimensions["height"];
-
-    Serial.printf("Dimensions: width=%d, height=%d\n", width, height);
-
-    for (int i = 0; i < height; i++) {
-      JsonArray row = arrayColors[i];
-      for (int j = 0; j < width; j++) {
-        JsonObject color = row[j];
-        int R = color["R"];
-        int G = color["G"];
-        int B = color["B"];
-        int A = color["A"];
-        Serial.printf("Color at (%d, %d): R=%d, G=%d, B=%d, A=%d\n", i, j, R, G, B, A);
-      }
-    }
-
-    request->send(200, "text/plain", "Data received");
+    thisPannello.show();
+    doc.clear();
+    request->send(200, "text/plain", "Display updated");
   });
 
   server.begin();
-  // server.onNotFound([](AsyncWebServerRequest *request){
-  //   String urlPath = request->url();
-
-  // });
 }
 
 void loop() {}
