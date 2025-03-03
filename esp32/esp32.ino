@@ -40,7 +40,7 @@ void setup() {
           request->send(400, "text/plain", "JSON Parsing Error: " + String(error.c_str()));
           return;
         };
-        JsonArray pixelArrayColors = doc["colorMatrixData"]["arrayColors"];
+        JsonArray pixelArrayColors = doc["arrayColors"];
         
         for(int forY = 0; forY < 8; forY++) {
           JsonArray arrayRigaPannello = pixelArrayColors[forY];
@@ -49,7 +49,7 @@ void setup() {
             int R = pixelColor[0];
             int G = pixelColor[1];
             int B = pixelColor[2];
-            
+
             Serial.println("pixel x:" + String(forX) + " y: " + String(forY) + "\t r: " + String(R) + " g: " + String(G) + " b: " + String(B));
             thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B));
           };
