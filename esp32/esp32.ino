@@ -20,12 +20,12 @@ void setup() {
   Serial.println("WiFi connected! IP Address: " + WiFi.localIP().toString());
   
   DefaultHeaders::Instance().addHeader("Access-Control-Allow-Origin", "*");
-  // DefaultHeaders::Instance().addHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  // DefaultHeaders::Instance().addHeader("Access-Control-Allow-Headers", "Content-Type");
+  DefaultHeaders::Instance().addHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  DefaultHeaders::Instance().addHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  // server.on("/data", HTTP_OPTIONS, [](AsyncWebServerRequest *request) {
-  //   request->send(200, "text/plain", "");
-  // });
+  server.on("/data", HTTP_OPTIONS, [](AsyncWebServerRequest *request) {
+    request->send(200, "text/plain", "");
+  });
 
   server.on("/data", HTTP_POST, nullptr, nullptr, [](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total){
     if (!index) {
