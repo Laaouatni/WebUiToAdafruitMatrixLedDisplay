@@ -10,27 +10,44 @@
 </head>
 
 <body class="p-4 grid gap-4">
-  <main class="relative flex w-full aspect-[32/8] justify-between transition-all">
-    <video class="w-full object-cover" src="./img/INTRO VIDEO WITH COLOUR SMOKE EFFECT __ Tutorial video link & Templates dawnload link In Description.mp4" autoplay loop></video>
+  <main class="border relative w-full flex aspect-[32/8] justify-between transition-all">
+    <div id="child" class="w-[10%] h-[50%] bg-red-500"></div>
+    <!-- <video class="w-full object-cover" src="./img/INTRO VIDEO WITH COLOUR SMOKE EFFECT __ Tutorial video link & Templates dawnload link In Description.mp4" autoplay loop></video> -->
   </main>
 </body>
 
 <script>
   const esp32Ip = "192.168.194.3:80";
-  convertUItoMatrixArrayOfColorsWithResolution(document.querySelector("main") || document.body).then(
-    (pixelColorArray) => {
-      fetch(`http://${esp32Ip}/updateDisplayPixels`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          arrayColors: pixelColorArray,
-        }),
-      })
-    }
-  )
 
+  sendImageToEsp32();
+
+  const main = document.querySelector("main");
+
+  main.addEventListener("mousemove", (e) => {
+    const child = main.querySelector("#child");
+    child.style.position = "fixed";
+    child.style.left = `${e.pageX}px`;
+    child.style.top = `${e.pageY}px`;
+  });
+
+  function sendImageToEsp32() {
+    convertUItoMatrixArrayOfColorsWithResolution(document.querySelector("main") || document.body).then(
+      (pixelColorArray) => {
+        fetch(`http://${esp32Ip}/updateDisplayPixels`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            arrayColors: pixelColorArray,
+          }),
+        }).then((res) => {
+          // sendImageToEsp32();
+        });
+      }
+    )
+  }
+  
   function convertUItoMatrixArrayOfColorsWithResolution(
     paramHtmlElement,
     paramWidth = 32,
