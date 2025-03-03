@@ -30,10 +30,6 @@
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          dimensions: {
-            width: pixelColorArray[0].length,
-            height: pixelColorArray.length,
-          },
           arrayColors: pixelColorArray,
         }),
       }).then((response) => {
