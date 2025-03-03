@@ -21,7 +21,7 @@
 </body>
 
 <script>
-  const esp32Ip = "192.168.";
+  const esp32Ip = "192.168.194.3";
   convertUItoMatrixArrayOfColorsWithResolution(document.querySelector("main") || document.body).then(
     (pixelColorArray) => {
       fetch(`http://${esp32Ip}/arrayPixelColors`, {
@@ -29,7 +29,13 @@
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(pixelColorArray),
+        body: JSON.stringify({
+          dimensions: {
+            width: pixelColorArray[0].length,
+            height: pixelColorArray.length,
+          },
+          arrayColors: pixelColorArray,
+        }),
       }).then((response) => {
         console.log(response);
       })
