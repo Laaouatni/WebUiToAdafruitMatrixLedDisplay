@@ -50,11 +50,13 @@ void setup() {
             int G = pixelColor[1];
             int B = pixelColor[2];
 
-            // thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B));
+            int t1 = millis();
+            thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B));
+            int t2 = millis();
+            Serial.println("ms: " + String(t2-t1));
           };
         };
-        
-        // thisPannello.show();
+        thisPannello.show();
         doc.clear();
         completeJsonString = "";
       
