@@ -21,6 +21,9 @@ void setup() {
   
   DefaultHeaders::Instance().addHeader("Access-Control-Allow-Origin", "*");
 
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(200, "text/plain", "Hello, world!");
+  });
   // server.onNotFound([](AsyncWebServerRequest *request){
   //   String urlPath = request->url();
 
