@@ -57,7 +57,9 @@ void setup() {
       request->send(200, "text/plain", "Display updated");
       return;
     }
-  })
+
+    request->send(404,"text/plain", "send a POST request instead")
+  });
 
   server.begin();
 }
