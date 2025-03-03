@@ -24,7 +24,7 @@
   const esp32Ip = "192.168.194.3:80";
   convertUItoMatrixArrayOfColorsWithResolution(document.querySelector("main") || document.body).then(
     (pixelColorArray) => {
-      fetch(`http://${esp32Ip}/data`, {
+      fetch(`http://${esp32Ip}/updateDisplayPixels`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
