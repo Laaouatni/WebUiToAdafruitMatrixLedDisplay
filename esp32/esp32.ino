@@ -49,6 +49,7 @@ void setup() {
             int R = pixelColor[0];
             int G = pixelColor[1];
             int B = pixelColor[2];
+            
             Serial.println("pixel x:" + String(forX) + " y: " + String(forY) + "\t r: " + String(R) + " g: " + String(G) + " b: " + String(B));
             thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B));
           };
