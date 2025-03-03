@@ -54,11 +54,14 @@ void setup() {
     } 
 
     if(request->method() == HTTP_POST) {
-      request->send(200, "text/plain", "Display updated");
-      return;
+      if(request->url() == "/updateDisplayPixels") {
+
+        request->send(200, "text/plain", "Display updated");
+        return;
+      }
     }
 
-    request->send(404,"text/plain", "send a POST request instead");
+    request->send(404,"text/plain", "send the correct POST request instead");
   });
 
   server.begin();
