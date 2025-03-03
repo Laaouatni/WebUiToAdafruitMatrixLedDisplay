@@ -22,7 +22,7 @@ void setup() {
   Serial.println("WiFi connected! IP Address: " + WiFi.localIP().toString());
   
   DefaultHeaders::Instance().addHeader("Access-Control-Allow-Origin", "*");
-  // DefaultHeaders::Instance().addHeader("Access-Control-Allow-Headers", "Content-Type");
+  DefaultHeaders::Instance().addHeader("Access-Control-Allow-Headers", "Content-Type");
 
   server.on("/updateDisplayPixels", HTTP_OPTIONS, [](AsyncWebServerRequest *request) {
     request->send(200, "text/plain", "OK. CORS bypassed");
@@ -50,11 +50,11 @@ void setup() {
             int G = pixelColor[1];
             int B = pixelColor[2];
 
-            thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B));
+            // thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B));
           };
         };
         
-        thisPannello.show();
+        // thisPannello.show();
         doc.clear();
         completeJsonString = "";
       
