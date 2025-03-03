@@ -26,8 +26,10 @@ void setup() {
     request->send(200, "text/plain", "OK. CORS bypassed");
   });
 
-  server.on("/updateDisplayPixels", HTTP_POST, [](AsyncWebServerRequest *request, auto *data) {
-    DeserializationError error = deserializeJson(doc, data);
+  server.on("/updateDisplayPixels", HTTP_POST, [](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total) {
+    const String thisStringData = String((char*)data).substring(0, len);
+
+    DeserializationError error = deserializeJson(doc, thisStringData);
     JsonArray pixelArrayColors = doc["colorMatrixData"]["arrayColors"];
     
     for(int forY = 0; forY < 8; forY++) {
@@ -40,6 +42,7 @@ void setup() {
         thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B));
       };
     }
+    
     thisPannello.show();
     doc.clear();
   
