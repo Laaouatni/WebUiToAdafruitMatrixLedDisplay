@@ -31,6 +31,8 @@ void setup() {
     [](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total) {
       const String thisStringData = String((char*)data).substring(0, len);
 
+      Serial.println("stringa: " + thisStringData);
+
       DeserializationError error = deserializeJson(doc, thisStringData);
       if(error) {
         request->send(400, "text/plain", "JSON Parsing Error: " + String(error.c_str()));
