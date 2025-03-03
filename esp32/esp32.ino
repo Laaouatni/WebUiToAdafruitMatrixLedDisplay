@@ -58,7 +58,7 @@ void setup() {
       return;
     }
 
-    request->send(404,"text/plain", "send a POST request instead")
+    request->send(404,"text/plain", "send a POST request instead");
   });
 
   server.begin();
