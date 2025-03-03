@@ -51,7 +51,7 @@ void setup() {
             int B = pixelColor[2];
             thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B));
           };
-        }
+        };
         
         thisPannello.show();
         doc.clear();
