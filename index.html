@@ -18,31 +18,37 @@
   const PANNELLO_HEIGHT = 8;
   let thisX = 0;
   let thisY = 0;
-  let thisRGBA = ["", "", "", ""];
+  let thisRGBAarray = ["", "", "", ""];
   let thisRGBAindex = 0;
-  for(let charIndex = 0; charIndex<=inputString.length; charIndex++) {
+
+  for (let charIndex = 0; charIndex <= inputString.length; charIndex++) {
     const thisChar = inputString[charIndex];
-    if(thisChar == ",") {
-      if(thisRGBAindex == (thisRGBA.length-1)) {
-        console.log(thisX, thisY,thisRGBA)
-        for(let thisRGBAstringToResetIndex = 0; thisRGBAstringToResetIndex <= (thisRGBA.length-1); thisRGBAstringToResetIndex++) {
-          thisRGBA[thisRGBAstringToResetIndex] = "";
-        }
+    if (thisChar == ",") {
+      const isLastColorFullyWritten = thisRGBAindex == (thisRGBAarray.length - 1);
+      if (isLastColorFullyWritten) {
+        resetRGBarray();
         thisRGBAindex = 0;
         thisX++;
+
+        function resetRGBarray() {
+          for (let thisRGBAstringToResetIndex = 0; thisRGBAstringToResetIndex <= (thisRGBAarray.length - 1); thisRGBAstringToResetIndex++) {
+            thisRGBAarray[thisRGBAstringToResetIndex] = "";
+          }
+        };
       } else {
         thisRGBAindex++
       }
     } else {
-      thisRGBA[thisRGBAindex] += String(thisChar);
+      thisRGBAarray[thisRGBAindex] += String(thisChar);
     }
-    if(thisX % PANNELLO_WIDTH) {
+    // console.log(thisX, thisY,thisRGBA)
+    if (thisX % PANNELLO_WIDTH) {
       thisY++;
       thisX = 0;
     };
   }
   const t2 = new Date();
-  console.log(t2-t1)
+  console.log(t2 - t1)
 </script>
 
 </html>
