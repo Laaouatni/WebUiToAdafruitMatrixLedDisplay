@@ -30,6 +30,7 @@ void setup() {
   server.on("/updateDisplayPixels", HTTP_POST, 
     [](AsyncWebServerRequest *request) {}, NULL,
     [](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total) {
+      const int t1 = millis();
       const String thisPartStringData = String((char*)data).substring(0, len);
       completeHttpBodyString += thisPartStringData;
       if (index + len != total) return;
@@ -81,7 +82,8 @@ void setup() {
 
       thisPannello.show();
       completeHttpBodyString = "";
-      request->send(200, "text/plain", "Display updated");
+      const int t2 = millis();
+      request->send(200, "text/plain", "Display updated in " + String(t2-t1) + " ms");
   });
 
   server.begin();
