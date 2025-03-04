@@ -10,8 +10,9 @@
 </head>
 
 <body class="p-4 grid gap-4">
+  <div id="fps"></div>
   <main class="outline relative w-full flex aspect-[32/8] justify-between transition-all">
-    <div id="child" class="absolute w-20 h-20 bg-red-500"></div>
+    <div id="child" class="absolute w-20 h-full bg-red-500"></div>
     <!-- <video class="w-full object-cover" src="./img/INTRO VIDEO WITH COLOUR SMOKE EFFECT __ Tutorial video link & Templates dawnload link In Description.mp4" autoplay loop></video> -->
   </main>
 </body>
@@ -21,17 +22,16 @@
 
   sendImageToEsp32();
 
-  // setInterval(() => {
-  //   sendImageToEsp32()
-  // },1000)
-
   const main = document.querySelector("main");
   const child = main.querySelector("#child");
 
   main.addEventListener("mousemove", (e) => {
-    child.style.left = `${e.clientX}px`;
-    child.style.top = `${e.clientY}px`;
+    child.style.left = `${e.clientX-16}px`;
   })
+
+  let nSentThisSecond = 0;
+  let prevSecond = 0;
+  const start = new Date();
 
   function sendImageToEsp32() {
     convertUItoMatrixArrayOfColorsWithResolution(document.querySelector("main") || document.body).then(
@@ -45,7 +45,11 @@
             arrayColors: pixelColorArray,
           }),
         }).then(() => {
+          const thisSecond = Math.floor((new Date() - start)/100);
+          document.querySelector("#fps").innerHTML = `${nSentThisSecond}immagini mandate in ${thisSecond}secondi... <br> average di ${(thisSecond/nSentThisSecond).toFixed(2)} immagini ogni secondo <br> average di ${(nSentThisSecond/thisSecond).toFixed(2)*1000}ms per ogni immagine`;
+
           sendImageToEsp32();
+          nSentThisSecond++;
         })
       }
     )
@@ -92,7 +96,7 @@
           })();
           result[positionOfObject.y][positionOfObject.x] = [pixelColorObject.R, pixelColorObject.G, pixelColorObject.B];
         }
-        // clonedHtmlElement.remove();
+        clonedHtmlElement.remove();
         res(result);
       });
 
