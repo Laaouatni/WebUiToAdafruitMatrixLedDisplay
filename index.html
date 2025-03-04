@@ -45,7 +45,13 @@
     paramHeight = 8,
   ) {
     return new Promise((res, rej) => {
+      const scale = {
+        x: paramWidth / paramHtmlElement.offsetWidth,
+        y: paramHeight / paramHtmlElement.offsetHeight,
+      };
+      console.log(scale)
       const clonedHtmlElement = paramHtmlElement.cloneNode(true);
+
       const styles = {
         height: `${paramHeight}px`,
         width: `${paramWidth}px`,
@@ -53,6 +59,7 @@
         // aspectRatio: "unset",
         // get left() { return `-${this.width}` },
       }
+
       Object.entries(styles).forEach(([key, value]) => {
         clonedHtmlElement.style[key] = value;
       });
