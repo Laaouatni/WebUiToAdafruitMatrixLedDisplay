@@ -38,7 +38,7 @@ void setup() {
       };
       int thisX = 0;
       int thisY = 0;
-      String thisRGBAarray[4] = [ "", "", "", "" ];
+      String thisRGBAarray[4] = {"", "", "", "" };
       int thisRGBAindex = 0;
 
       for (int charIndex = 0; charIndex <= completeHttpBodyString.length; charIndex++) {
@@ -50,21 +50,21 @@ void setup() {
           continue;
         }
 
-        const bool isLastColorFullyWritten = thisRGBAindex == (thisRGBAarray.length - 1)
+        const int thisRGBAarrayLength = (sizeof(thisRGBAarray)/sizeof(thisRGBAarray[0]));
+        const bool isLastColorFullyWritten = thisRGBAindex == (thisRGBAarrayLength-1);
 
         if(!isLastColorFullyWritten) {
           thisRGBAindex++;
           continue;
-        }
+        };
 
         const int R = thisRGBAarray[0].toInt();
         const int G = thisRGBAarray[1].toInt();
         const int B = thisRGBAarray[2].toInt();
 
-        thisPannello.drawPixel(forX, forY, thisPannello.Color())
+        thisPannello.drawPixel(forX, forY, thisPannello.Color(R, G, B));
 
-        
-        for (let thisRGBAstringToResetIndex = 0; thisRGBAstringToResetIndex <= (thisRGBAarray.length-1); thisRGBAstringToResetIndex++) {
+        for (int thisRGBAstringToResetIndex = 0; thisRGBAstringToResetIndex < thisRGBAarrayLength; thisRGBAstringToResetIndex++) {
           thisRGBAarray[thisRGBAstringToResetIndex] = "";
         }
         
@@ -75,8 +75,6 @@ void setup() {
           thisX = 0;
         }
       }
-
-        // thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B));
 
       thisPannello.show();
       completeJsonString = "";
