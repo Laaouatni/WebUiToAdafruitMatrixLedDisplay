@@ -47,40 +47,11 @@
     return new Promise((res, rej) => {
       const clonedHtmlElement = paramHtmlElement.cloneNode(true);
       const scale = paramWidth / paramHtmlElement.offsetWidth;
-
-      function scaleElementStyles(originalElement, cloneElement) {
-        const getComputedStyleOriginal = window.getComputedStyle(originalElement);
-  
-        const pxAttributes = [...getComputedStyleOriginal].filter((styleAttribute) => {
-          return getComputedStyleOriginal[styleAttribute].includes("px");
-        });
-  
-        pxAttributes.forEach((styleAttribute) => {
-          const value = parseFloat(getComputedStyleOriginal[styleAttribute].replace("px", ""));
-          const fixedTypo = styleAttribute.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
-          cloneElement.style[fixedTypo] = `${value * scale}px`;
-        });
-
-        [...originalElement.children].forEach((_, i) => {
-          scaleElementStyles(originalElement.children[i], cloneElement.children[i]);
-        })
-      };
-
-      const styles = {
-        height: `${paramHeight}px`,
-        width: `${paramWidth}px`,
-        // position: "fixed",
-        // aspectRatio: "unset",
-        // get left() { return `-${this.width}` },
-      }
-
-      Object.entries(styles).forEach(([key, value]) => {
-        clonedHtmlElement.style[key] = value;
-      });
-
+      clonedHtmlElement.style.width = `${paramWidth}px`;
+      clonedHtmlElement.style.height = `${paramHeight}px`;
       scaleElementStyles(paramHtmlElement, clonedHtmlElement);
-
       document.body.appendChild(clonedHtmlElement);
+
       html2canvas(clonedHtmlElement).then((thisHtmlCanvas) => {
         const thisHtmlCtx = thisHtmlCanvas.getContext("2d");
         const thisUint8ClampedArray = thisHtmlCtx.getImageData(0, 0, thisHtmlCanvas.width, thisHtmlCanvas.height).data;
@@ -109,12 +80,31 @@
           })();
           result[positionOfObject.y][positionOfObject.x] = [pixelColorObject.R, pixelColorObject.G, pixelColorObject.B];
         }
-        // clonedHtmlElement.remove();
-        console.log(result);
+        clonedHtmlElement.remove();
         res(result);
       });
+
+      function scaleElementStyles(originalElement, cloneElement) {
+        const getComputedStyleOriginal = window.getComputedStyle(originalElement);
+
+        const pxAttributes = [...getComputedStyleOriginal].filter((styleAttribute) => {
+          return getComputedStyleOriginal[styleAttribute].includes("px");
+        });
+
+        pxAttributes.forEach((styleAttribute) => {
+          const value = parseFloat(getComputedStyleOriginal[styleAttribute].replace("px", ""));
+          const fixedTypo = styleAttribute.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+          cloneElement.style[fixedTypo] = `${value * scale}px`;
+        });
+
+        [...originalElement.children].forEach((_, i) => {
+          scaleElementStyles(originalElement.children[i], cloneElement.children[i]);
+        })
+      };
     });
   };
+
+
 </script>
 
 </html>
