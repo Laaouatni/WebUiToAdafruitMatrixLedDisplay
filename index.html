@@ -18,16 +18,16 @@
   const PANNELLO_HEIGHT = 8;
   let thisX = 0;
   let thisY = 0;
-  let thisRGB = ["", "", ""];
-  let thisRGBindex = 0;
+  let thisRGBA = ["", "", "", ""];
+  let thisRGBAindex = 0;
   for(let charIndex = 0; charIndex<=inputString.length; charIndex++) {
     const thisChar = inputString[charIndex];
     if(thisChar == ",") {
-      thisRGBindex == (thisRGB.length-1) ? (thisRGBindex = 0) : (thisRGBindex++);
+      thisRGBAindex == (thisRGBA.length-1) ? (thisRGBAindex = 0) : (thisRGBAindex++);
     } else {
-      thisRGB[thisRGBindex] += String(thisChar);
+      thisRGBA[thisRGBAindex] += String(thisChar);
     }
-    console.log(thisRGB)
+    console.log(thisRGBA)
     if(thisX % PANNELLO_WIDTH) {
       thisY++;
       thisX = 0;
