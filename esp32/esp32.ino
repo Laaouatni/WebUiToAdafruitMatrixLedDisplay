@@ -33,12 +33,7 @@ void setup() {
       const String thisPartStringData = String((char*)data).substring(0, len);
       completeHttpBodyString += thisPartStringData;
       if (index + len != total) return;
-
-      // DeserializationError error = deserializeJson(doc, completeJsonString);
-      // if(error) {
-      //   request->send(400, "text/plain", "JSON Parsing Error: " + String(error.c_str()));
-      //   return;
-      // };
+      
       // JsonArray pixelArrayColors = doc["arrayColors"];
       for(int forY = 0; forY < 8; forY++) {
         // JsonArray arrayRigaPannello = pixelArrayColors[forY];
