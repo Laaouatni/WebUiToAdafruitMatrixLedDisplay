@@ -57,6 +57,13 @@ void setup() {
           continue;
         }
 
+        const int R = thisRGBAarray[0].toInt();
+        const int G = thisRGBAarray[1].toInt();
+        const int B = thisRGBAarray[2].toInt();
+
+        thisPannello.drawPixel(forX, forY, thisPannello.Color())
+
+        
         for (let thisRGBAstringToResetIndex = 0; thisRGBAstringToResetIndex <= (thisRGBAarray.length-1); thisRGBAstringToResetIndex++) {
           thisRGBAarray[thisRGBAstringToResetIndex] = "";
         }
@@ -71,7 +78,7 @@ void setup() {
 
         // thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B));
 
-        thisPannello.show();
+      thisPannello.show();
       completeJsonString = "";
       request->send(200, "text/plain", "Display updated");
   });
