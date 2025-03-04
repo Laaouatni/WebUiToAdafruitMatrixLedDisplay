@@ -19,9 +19,13 @@
   let thisX = 0;
   let thisY = 0;
   let thisRGB = [null, null, null];
+  let thisRGBindex = 0;
   for(let charIndex = 0; charIndex<=inputString.length; charIndex++) {
     const thisChar = inputString[charIndex];
-    if(thisChar == ",") console.log(thisChar)
+    if(thisChar == ",") {
+      thisRGBindex == (thisRGB.length-1) ? (thisRGBindex = 0) : (thisRGBindex++);
+    }
+    console.log(thisRGBindex)
     if(thisX % PANNELLO_WIDTH) {
       thisY++;
       thisX = 0;
