@@ -10,7 +10,7 @@
 </head>
 
 <body class="p-4 grid gap-4">
-  <main class="outline relative w-full flex aspect-[32/8] justify-between transition-all">
+  <main style="width: 1280px; max-width: 1280px; align-self: center; margin-top: 1px; margin-bottom: 1px;" class="outline relative w-full flex aspect-[32/8] justify-between transition-all">
     <div id="child" class="w-[20px] h-[50%] bg-red-500"></div>
     <!-- <video class="w-full object-cover" src="./img/INTRO VIDEO WITH COLOUR SMOKE EFFECT __ Tutorial video link & Templates dawnload link In Description.mp4" autoplay loop></video> -->
   </main>
@@ -49,7 +49,7 @@
         x: paramWidth / paramHtmlElement.offsetWidth,
         y: paramHeight / paramHtmlElement.offsetHeight,
       };
-      console.log(scale)
+      console.log(paramHtmlElement.getAttribute("style"));
       const clonedHtmlElement = paramHtmlElement.cloneNode(true);
 
       const styles = {
