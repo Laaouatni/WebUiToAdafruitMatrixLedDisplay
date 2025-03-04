@@ -23,7 +23,8 @@
 
   for (let charIndex = 0; charIndex <= inputString.length; charIndex++) {
     const thisChar = inputString[charIndex];
-    if (thisChar == ",") {
+    const canGoToNextSplittedString = thisChar == ",";
+    if (canGoToNextSplittedString) {
       const isLastColorFullyWritten = thisRGBAindex == (thisRGBAarray.length - 1);
       if (isLastColorFullyWritten) {
         resetRGBarray();
