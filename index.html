@@ -27,10 +27,10 @@
     if (canGoToNextSplittedString) {
       const isLastColorFullyWritten = thisRGBAindex == (thisRGBAarray.length - 1);
       if (isLastColorFullyWritten) {
-        console.log(thisX, thisY, thisRGBAarray);
+        console.log(thisX, thisX % PANNELLO_WIDTH == 0 ? "🟩" : "🟥");
         resetRGBarray();
         thisRGBAindex = 0;
-        if(thisX % PANNELLO_WIDTH) {
+        if(thisX % PANNELLO_WIDTH == 0) {
           thisY++;
           thisX = 0;
         } else {
