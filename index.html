@@ -38,7 +38,7 @@
       }
     )
   }
-  
+
   function convertUItoMatrixArrayOfColorsWithResolution(
     paramHtmlElement,
     paramWidth = 32,
@@ -56,8 +56,8 @@
 
       pxAttributes.forEach((styleAttribute) => {
         const value = parseFloat(getComputedStyleParamHtmlElement[styleAttribute].replace("px", ""));
-        console.log(styleAttribute, value);
-        // clonedHtmlElement.style[styleAttribute] = `${value * scale}px !important`;
+        const fixedTypo = styleAttribute.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+        clonedHtmlElement.style[fixedTypo] = `${value * scale}px`;
       });
 
       // function getModifiedStyleAttributes(paramElement) {
@@ -81,7 +81,7 @@
       // });
 
       // paramHtmlElement.classList.forEach((className) => {
-        
+
       // });
 
       const styles = {
