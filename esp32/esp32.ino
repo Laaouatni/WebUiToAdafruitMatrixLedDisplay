@@ -33,23 +33,47 @@ void setup() {
       const String thisPartStringData = String((char*)data).substring(0, len);
       completeHttpBodyString += thisPartStringData;
       if (index + len != total) return;
-      
-      // JsonArray pixelArrayColors = doc["arrayColors"];
-      for(int forY = 0; forY < 8; forY++) {
-        // JsonArray arrayRigaPannello = pixelArrayColors[forY];
-        for(int forX = 0; forX < 32; forX++) {
-          // JsonArray pixelColor = arrayRigaPannello[forX];
-          int R = pixelColor[0];
-          int G = pixelColor[1];
-          int B = pixelColor[2];
-          thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B));
-        };
+      if(completeHttpBodyString[completeHttpBodyString.length-1] != ',') {
+        completeHttpBodyString += ',';
       };
-      thisPannello.show();
-      doc.clear();
+      int thisX = 0;
+      int thisY = 0;
+      String thisRGBAarray[4] = [ "", "", "", "" ];
+      int thisRGBAindex = 0;
+
+      for (int charIndex = 0; charIndex <= completeHttpBodyString.length; charIndex++) {
+        const char thisChar = completeHttpBodyString[charIndex];
+        const bool canGoToNextSplittedString = thisChar == ',';
+
+        if(!canGoToNextSplittedString) {
+          thisRGBAarray[thisRGBAindex] += String(thisChar);
+          continue;
+        }
+
+        const bool isLastColorFullyWritten = thisRGBAindex == (thisRGBAarray.length - 1)
+
+        if(!isLastColorFullyWritten) {
+          thisRGBAindex++;
+          continue;
+        }
+
+        for (let thisRGBAstringToResetIndex = 0; thisRGBAstringToResetIndex <= (thisRGBAarray.length-1); thisRGBAstringToResetIndex++) {
+          thisRGBAarray[thisRGBAstringToResetIndex] = "";
+        }
+        
+        thisX++;
+        thisRGBAindex = 0;
+        if(thisX % PANNELLO_WIDTH == 0) {
+          thisY++;
+          thisX = 0;
+        }
+      }
+
+        // thisPannello.drawPixel(forX, forY, thisPannello.Color(R,G,B));
+
+        thisPannello.show();
       completeJsonString = "";
       request->send(200, "text/plain", "Display updated");
-      
   });
 
   server.begin();
