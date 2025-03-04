@@ -11,7 +11,7 @@
 
 <body class="p-4 grid gap-4">
   <main class="outline relative w-full flex aspect-[32/8] justify-between transition-all">
-    <div id="child" class="w-[20px] h-[50%] bg-red-500"></div>
+    <div id="child" class="w-[80%] h-[50%] bg-red-500"></div>
     <!-- <video class="w-full object-cover" src="./img/INTRO VIDEO WITH COLOUR SMOKE EFFECT __ Tutorial video link & Templates dawnload link In Description.mp4" autoplay loop></video> -->
   </main>
 </body>
@@ -48,41 +48,23 @@
       const clonedHtmlElement = paramHtmlElement.cloneNode(true);
       const scale = paramWidth / paramHtmlElement.offsetWidth;
 
-      const getComputedStyleParamHtmlElement = window.getComputedStyle(paramHtmlElement);
+      function scaleElementStyles(originalElement, cloneElement) {
+        const getComputedStyleOriginal = window.getComputedStyle(originalElement);
+  
+        const pxAttributes = [...getComputedStyleOriginal].filter((styleAttribute) => {
+          return getComputedStyleOriginal[styleAttribute].includes("px");
+        });
+  
+        pxAttributes.forEach((styleAttribute) => {
+          const value = parseFloat(getComputedStyleOriginal[styleAttribute].replace("px", ""));
+          const fixedTypo = styleAttribute.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+          cloneElement.style[fixedTypo] = `${value * scale}px`;
+        });
 
-      const pxAttributes = [...getComputedStyleParamHtmlElement].filter((styleAttribute) => {
-        return getComputedStyleParamHtmlElement[styleAttribute].includes("px");
-      });
-
-      pxAttributes.forEach((styleAttribute) => {
-        const value = parseFloat(getComputedStyleParamHtmlElement[styleAttribute].replace("px", ""));
-        const fixedTypo = styleAttribute.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
-        clonedHtmlElement.style[fixedTypo] = `${value * scale}px`;
-      });
-
-      // function getModifiedStyleAttributes(paramElement) {
-      //   const styleString = paramElement.getAttribute("style");
-      //   if(!styleString) return {};
-      //   const styleArray = styleString.split(";").filter((styleKeyValue) => styleKeyValue);
-      //   const styleAttributesArray = styleArray.map((styleAttribute) => {
-      //     const cssAttribute = styleAttribute.split(":")[0].trim();
-      //     const fixedTypo = cssAttribute.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
-      //     return fixedTypo;
-      //   });
-      //   return styleAttributesArray;
-      // }
-
-      // getModifiedStyleAttributes(paramHtmlElement).forEach((styleAttribute) => {
-      //   const styleValue = paramHtmlElement.style[styleAttribute];
-      //   if(styleValue.includes("px")) {
-      //     const value = parseInt(styleValue.replace("px", ""));
-      //     clonedHtmlElement.style[styleAttribute] = `${value * scale}px !important`;
-      //   }
-      // });
-
-      // paramHtmlElement.classList.forEach((className) => {
-
-      // });
+        [...originalElement.children].forEach((_, i) => {
+          scaleElementStyles(originalElement.children[i], cloneElement.children[i]);
+        })
+      };
 
       const styles = {
         height: `${paramHeight}px`,
@@ -95,6 +77,9 @@
       Object.entries(styles).forEach(([key, value]) => {
         clonedHtmlElement.style[key] = value;
       });
+
+      scaleElementStyles(paramHtmlElement, clonedHtmlElement);
+
       document.body.appendChild(clonedHtmlElement);
       html2canvas(clonedHtmlElement).then((thisHtmlCanvas) => {
         const thisHtmlCtx = thisHtmlCanvas.getContext("2d");
