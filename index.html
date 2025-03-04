@@ -10,7 +10,7 @@
 </head>
 
 <body class="p-4 grid gap-4">
-  <main class="relative w-full flex aspect-[32/8] justify-between transition-all">
+  <main class="outline relative w-full flex aspect-[32/8] justify-between transition-all">
     <div id="child" class="w-[20px] h-[50%] bg-red-500"></div>
     <!-- <video class="w-full object-cover" src="./img/INTRO VIDEO WITH COLOUR SMOKE EFFECT __ Tutorial video link & Templates dawnload link In Description.mp4" autoplay loop></video> -->
   </main>
@@ -20,15 +20,6 @@
   const esp32Ip = "192.168.194.3:80";
 
   sendImageToEsp32();
-
-  const main = document.querySelector("main");
-
-  main.addEventListener("mousemove", (e) => {
-    const child = main.querySelector("#child");
-    child.style.position = "fixed";
-    child.style.left = `${e.pageX}px`;
-    child.style.top = `${e.pageY}px`;
-  });
 
   function sendImageToEsp32() {
     convertUItoMatrixArrayOfColorsWithResolution(document.querySelector("main") || document.body).then(
@@ -58,9 +49,9 @@
       const styles = {
         height: `${paramHeight}px`,
         width: `${paramWidth}px`,
-        position: "fixed",
-        aspectRatio: "unset",
-        get left() { return `-${this.width}` },
+        // position: "fixed",
+        // aspectRatio: "unset",
+        // get left() { return `-${this.width}` },
       }
       Object.entries(styles).forEach(([key, value]) => {
         clonedHtmlElement.style[key] = value;
@@ -94,7 +85,7 @@
           })();
           result[positionOfObject.y][positionOfObject.x] = [pixelColorObject.R, pixelColorObject.G, pixelColorObject.B];
         }
-        clonedHtmlElement.remove();
+        // clonedHtmlElement.remove();
         console.log(result);
         res(result);
       });
