@@ -7,7 +7,7 @@ AsyncWebServer server(80);
 const int PANNELLO_WIDTH = 32;
 const int PANNELLO_HEIGHT = 8;
 Adafruit_NeoMatrix thisPannello = Adafruit_NeoMatrix(PANNELLO_WIDTH,PANNELLO_HEIGHT,15,NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG);
-String completeJsonString = "";
+String completeHttpBodyString = "";
 
 void setup() {
   Serial.begin(115200);
@@ -30,15 +30,15 @@ void setup() {
   server.on("/updateDisplayPixels", HTTP_POST, 
     [](AsyncWebServerRequest *request) {}, NULL,
     [](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total) {
-      const String thisStringData = String((char*)data).substring(0, len);
-      completeJsonString += thisStringData;
+      const String thisPartStringData = String((char*)data).substring(0, len);
+      completeHttpBodyString += thisPartStringData;
       if (index + len != total) return;
 
       // DeserializationError error = deserializeJson(doc, completeJsonString);
-      if(error) {
-        request->send(400, "text/plain", "JSON Parsing Error: " + String(error.c_str()));
-        return;
-      };
+      // if(error) {
+      //   request->send(400, "text/plain", "JSON Parsing Error: " + String(error.c_str()));
+      //   return;
+      // };
       // JsonArray pixelArrayColors = doc["arrayColors"];
       for(int forY = 0; forY < 8; forY++) {
         // JsonArray arrayRigaPannello = pixelArrayColors[forY];
