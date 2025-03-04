@@ -27,14 +27,13 @@
     if (canGoToNextSplittedString) {
       const isLastColorFullyWritten = thisRGBAindex == (thisRGBAarray.length - 1);
       if (isLastColorFullyWritten) {
-        console.log(thisX, thisX % PANNELLO_WIDTH == 0 ? "🟩" : "🟥");
+        thisX++;
+        console.log(thisX, thisX % PANNELLO_WIDTH == 0 ? "🟩" : "🟥", thisY);
         resetRGBarray();
         thisRGBAindex = 0;
         if(thisX % PANNELLO_WIDTH == 0) {
           thisY++;
           thisX = 0;
-        } else {
-          thisX++;
         }
         function resetRGBarray() {
           for (let thisRGBAstringToResetIndex = 0; thisRGBAstringToResetIndex <= (thisRGBAarray.length - 1); thisRGBAstringToResetIndex++) {
@@ -49,7 +48,7 @@
     }
   }
   const t2 = new Date();
-  console.log(t2 - t1)
+  // console.log(t2 - t1)
 </script>
 
 </html>
