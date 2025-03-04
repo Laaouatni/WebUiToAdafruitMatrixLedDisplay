@@ -45,10 +45,9 @@
     paramHeight = 8,
   ) {
     return new Promise((res, rej) => {
-      const scale = {
-        x: paramWidth / paramHtmlElement.offsetWidth,
-        y: paramHeight / paramHtmlElement.offsetHeight,
-      };
+      const clonedHtmlElement = paramHtmlElement.cloneNode(true);
+
+      const scale = paramWidth / paramHtmlElement.offsetWidth;
 
       function getModifiedStyleAttributes(paramElement) {
         const styleString = paramElement.getAttribute("style");
@@ -59,10 +58,18 @@
           const fixedTypo = cssAttribute.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
           return fixedTypo;
         });
-        console.log(styleAttributesArray);
+        return styleAttributesArray;
       }
-      console.log(getModifiedStyleAttributes(paramHtmlElement));
-      const clonedHtmlElement = paramHtmlElement.cloneNode(true);
+
+      getModifiedStyleAttributes(paramHtmlElement).forEach((styleAttribute) => {
+        const styleValue = paramHtmlElement.style[styleAttribute];
+        if(styleValue.includes("px")) {
+          const value = parseInt(styleValue.replace("px", ""));
+          clonedHtmlElement.style[styleAttribute] = `${value * scale}px !important`;
+        }
+      });
+
+      
 
       const styles = {
         height: `${paramHeight}px`,
