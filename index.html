@@ -29,8 +29,12 @@
       if (isLastColorFullyWritten) {
         resetRGBarray();
         thisRGBAindex = 0;
-        thisX++;
-
+        if(thisX % PANNELLO_WIDTH) {
+          thisY++;
+          thisX = 0;
+        } else {
+          thisX++;
+        }
         function resetRGBarray() {
           for (let thisRGBAstringToResetIndex = 0; thisRGBAstringToResetIndex <= (thisRGBAarray.length - 1); thisRGBAstringToResetIndex++) {
             thisRGBAarray[thisRGBAstringToResetIndex] = "";
