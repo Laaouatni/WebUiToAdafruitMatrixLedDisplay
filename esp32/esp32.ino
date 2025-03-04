@@ -33,11 +33,14 @@ void setup() {
       const String thisPartStringData = String((char*)data).substring(0, len);
       completeHttpBodyString += thisPartStringData;
       if (index + len != total) return;
+
       if(completeHttpBodyString[completeHttpBodyString.length()-1] != ',') {
         completeHttpBodyString += ',';
       };
+
       int thisX = 0;
       int thisY = 0;
+      
       String thisRGBAarray[4] = {"", "", "", "" };
       int thisRGBAindex = 0;
 
