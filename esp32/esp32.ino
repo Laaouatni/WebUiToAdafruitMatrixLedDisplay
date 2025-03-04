@@ -1,11 +1,12 @@
 #include <WiFi.h>
-// #include <ArduinoJson.h>
 #include <Adafruit_NeoMatrix.h>
 #include <ESPAsyncWebServer.h>
 
 AsyncWebServer server(80);
 
-Adafruit_NeoMatrix thisPannello = Adafruit_NeoMatrix(32,8,15,NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG);
+const int PANNELLO_WIDTH = 32;
+const int PANNELLO_HEIGHT = 8;
+Adafruit_NeoMatrix thisPannello = Adafruit_NeoMatrix(PANNELLO_WIDTH,PANNELLO_HEIGHT,15,NEO_MATRIX_COLUMNS + NEO_MATRIX_ZIGZAG);
 String completeJsonString = "";
 
 void setup() {
