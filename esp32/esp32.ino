@@ -33,7 +33,7 @@ void setup() {
       const String thisPartStringData = String((char*)data).substring(0, len);
       completeHttpBodyString += thisPartStringData;
       if (index + len != total) return;
-      if(completeHttpBodyString[completeHttpBodyString.length-1] != ',') {
+      if(completeHttpBodyString[completeHttpBodyString.length()-1] != ',') {
         completeHttpBodyString += ',';
       };
       int thisX = 0;
@@ -41,7 +41,7 @@ void setup() {
       String thisRGBAarray[4] = {"", "", "", "" };
       int thisRGBAindex = 0;
 
-      for (int charIndex = 0; charIndex <= completeHttpBodyString.length; charIndex++) {
+      for (int charIndex = 0; charIndex < completeHttpBodyString.length(); charIndex++) {
         const char thisChar = completeHttpBodyString[charIndex];
         const bool canGoToNextSplittedString = thisChar == ',';
 
@@ -62,7 +62,7 @@ void setup() {
         const int G = thisRGBAarray[1].toInt();
         const int B = thisRGBAarray[2].toInt();
 
-        thisPannello.drawPixel(forX, forY, thisPannello.Color(R, G, B));
+        thisPannello.drawPixel(thisX, thisY, thisPannello.Color(R, G, B));
 
         for (int thisRGBAstringToResetIndex = 0; thisRGBAstringToResetIndex < thisRGBAarrayLength; thisRGBAstringToResetIndex++) {
           thisRGBAarray[thisRGBAstringToResetIndex] = "";
@@ -77,7 +77,7 @@ void setup() {
       }
 
       thisPannello.show();
-      completeJsonString = "";
+      completeHttpBodyString = "";
       request->send(200, "text/plain", "Display updated");
   });
 
