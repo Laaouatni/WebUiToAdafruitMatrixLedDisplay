@@ -9,85 +9,87 @@
   <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 </head>
 
-<body class="p-4 grid gap-4">
+<!-- <body class="p-4 grid gap-4">
   <div id="fps"></div>
   <main class="outline relative w-full flex aspect-[32/8] justify-between transition-all">
     <div id="child" class="absolute w-20 h-full bg-red-500"></div>
-    <!-- <video class="w-full object-cover" src="./img/INTRO VIDEO WITH COLOUR SMOKE EFFECT __ Tutorial video link & Templates dawnload link In Description.mp4" autoplay loop></video> -->
-  </main>
-</body>
+    <video class="w-full object-cover" src="./img/INTRO VIDEO WITH COLOUR SMOKE EFFECT __ Tutorial video link & Templates dawnload link In Description.mp4" autoplay loop></video>
+  </main> -->
+<body></body>
+
 
 <script>
-  const esp32Ip = "192.168.194.3";
+  const inputString = "239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,247,156,156,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,247,156,156,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,247,156,156,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,247,156,156,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,247,156,156,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,247,156,156,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,247,156,156,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,239,68,68,255,247,156,156,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255"
+  // const esp32Ip = "192.168.194.3";
 
-  sendImageToEsp32();
+  // sendImageToEsp32();
 
-  const main = document.querySelector("main");
-  const child = main.querySelector("#child");
+  // const main = document.querySelector("main");
+  // const child = main.querySelector("#child");
 
-  main.addEventListener("mousemove", (e) => {
-    child.style.left = `${e.clientX-16}px`;
-  })
+  // main.addEventListener("mousemove", (e) => {
+  //   child.style.left = `${e.clientX-16}px`;
+  // })
 
-  let totalImagesSent = 0;
-  let prevSecond = 0;
-  const start = new Date();
+  // let totalImagesSent = 0;
+  // let prevSecond = 0;
+  // const start = new Date();
 
-  function sendPixelsToEsp32() {
-    convertUItoArrayOfColorsWithResolution(document.querySelector("main") || document.body).then(
-      (pixelColorArray) => {
-        fetch(`http://${esp32Ip}/updateDisplayPixels`, {
-          method: "POST",
-          body: pixelColorArray
-        }).then(() => {
-          const thisSecond = Math.floor((new Date()-start)/100);
-          document.querySelector("#fps").innerHTML = `${totalImagesSent}immagini mandate in ${thisSecond}secondi... <br> average di ${(thisSecond/totalImagesSent).toFixed(2)} immagini ogni secondo <br> average di ${(totalImagesSent/thisSecond).toFixed(2)*1000}ms per ogni immagine`;
-          sendPixelsToEsp32();
-          totalImagesSent++;
-        })
-      }
-    )
-  }
+  // function sendPixelsToEsp32() {
+  //   convertUItoArrayOfColorsWithResolution(document.querySelector("main") || document.body).then(
+  //     (pixelColorArray) => {
+  //       fetch(`http://${esp32Ip}/updateDisplayPixels`, {
+  //         method: "POST",
+  //         body: pixelColorArray
+  //       }).then(() => {
+  //         const thisSecond = Math.floor((new Date()-start)/100);
+  //         document.querySelector("#fps").innerHTML = `${totalImagesSent}immagini mandate in ${thisSecond}secondi... <br> average di ${(thisSecond/totalImagesSent).toFixed(2)} immagini ogni secondo <br> average di ${(totalImagesSent/thisSecond).toFixed(2)*1000}ms per ogni immagine`;
+  //         sendPixelsToEsp32();
+  //         totalImagesSent++;
+  //       })
+  //     }
+  //   )
+  // }
 
-  function convertUItoArrayOfColorsWithResolution(
-    paramHtmlElement,
-    paramWidth = 32,
-    paramHeight = 8,
-  ) {
-    return new Promise((res, rej) => {
-      const clonedHtmlElement = paramHtmlElement.cloneNode(true);
-      const scale = paramWidth / paramHtmlElement.offsetWidth;
-      clonedHtmlElement.style.width = `${paramWidth}px`;
-      clonedHtmlElement.style.height = `${paramHeight}px`;
-      scaleElementStyles(paramHtmlElement, clonedHtmlElement);
-      document.body.appendChild(clonedHtmlElement);
+  // function convertUItoArrayOfColorsWithResolution(
+  //   paramHtmlElement,
+  //   paramWidth = 32,
+  //   paramHeight = 8,
+  // ) {
+  //   return new Promise((res, rej) => {
+  //     const clonedHtmlElement = paramHtmlElement.cloneNode(true);
+  //     const scale = paramWidth / paramHtmlElement.offsetWidth;
+  //     clonedHtmlElement.style.width = `${paramWidth}px`;
+  //     clonedHtmlElement.style.height = `${paramHeight}px`;
+  //     scaleElementStyles(paramHtmlElement, clonedHtmlElement);
+  //     document.body.appendChild(clonedHtmlElement);
 
-      html2canvas(clonedHtmlElement).then((thisHtmlCanvas) => {
-        clonedHtmlElement.remove();
-        const thisHtmlCtx = thisHtmlCanvas.getContext("2d");
-        const thisUint8ClampedArray = thisHtmlCtx.getImageData(0, 0, thisHtmlCanvas.width, thisHtmlCanvas.height).data;
-        res(thisUint8ClampedArray.toString());
-      });
+  //     html2canvas(clonedHtmlElement).then((thisHtmlCanvas) => {
+  //       clonedHtmlElement.remove();
+  //       const thisHtmlCtx = thisHtmlCanvas.getContext("2d");
+  //       const thisUint8ClampedArray = thisHtmlCtx.getImageData(0, 0, thisHtmlCanvas.width, thisHtmlCanvas.height).data;
+  //       res(thisUint8ClampedArray.toString());
+  //     });
 
-      function scaleElementStyles(originalElement, cloneElement) {
-        const getComputedStyleOriginal = window.getComputedStyle(originalElement);
+  //     function scaleElementStyles(originalElement, cloneElement) {
+  //       const getComputedStyleOriginal = window.getComputedStyle(originalElement);
 
-        const pxAttributes = [...getComputedStyleOriginal].filter((styleAttribute) => {
-          return getComputedStyleOriginal[styleAttribute].includes("px");
-        });
+  //       const pxAttributes = [...getComputedStyleOriginal].filter((styleAttribute) => {
+  //         return getComputedStyleOriginal[styleAttribute].includes("px");
+  //       });
 
-        pxAttributes.forEach((styleAttribute) => {
-          const value = parseFloat(getComputedStyleOriginal[styleAttribute].replace("px", ""));
-          const fixedTypo = styleAttribute.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
-          cloneElement.style[fixedTypo] = `${value * scale}px`;
-        });
+  //       pxAttributes.forEach((styleAttribute) => {
+  //         const value = parseFloat(getComputedStyleOriginal[styleAttribute].replace("px", ""));
+  //         const fixedTypo = styleAttribute.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+  //         cloneElement.style[fixedTypo] = `${value * scale}px`;
+  //       });
 
-        [...originalElement.children].forEach((_, i) => {
-          scaleElementStyles(originalElement.children[i], cloneElement.children[i]);
-        })
-      };
-    });
-  };
+  //       [...originalElement.children].forEach((_, i) => {
+  //         scaleElementStyles(originalElement.children[i], cloneElement.children[i]);
+  //       })
+  //     };
+  //   });
+  // };
 </script>
 
 </html>
