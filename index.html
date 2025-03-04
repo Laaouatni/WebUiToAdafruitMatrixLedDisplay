@@ -23,7 +23,11 @@
   for(let charIndex = 0; charIndex<=inputString.length; charIndex++) {
     const thisChar = inputString[charIndex];
     if(thisChar == ",") {
-      thisRGBAindex == (thisRGBA.length-1) ? (thisRGBAindex = 0) : (thisRGBAindex++);
+      if(thisRGBAindex == (thisRGBA.length-1)) {
+        thisRGBAindex = 0
+      } else {
+        thisRGBAindex++
+      }
     } else {
       thisRGBA[thisRGBAindex] += String(thisChar);
     }
