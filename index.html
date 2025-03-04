@@ -18,9 +18,10 @@
   const PANNELLO_HEIGHT = 8;
   let thisX = 0;
   let thisY = 0;
-  let thisR, thisG, thisB;
+  let thisRGB = [null, null, null];
   for(let charIndex = 0; charIndex<=inputString.length; charIndex++) {
-    console.log(charIndex, inputString.length);
+    const thisChar = inputString[charIndex];
+    if(thisChar == ",") console.log(thisChar)
     if(thisX % PANNELLO_WIDTH) {
       thisY++;
       thisX = 0;
