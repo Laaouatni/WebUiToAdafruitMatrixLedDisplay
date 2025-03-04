@@ -24,14 +24,18 @@
     const thisChar = inputString[charIndex];
     if(thisChar == ",") {
       if(thisRGBAindex == (thisRGBA.length-1)) {
-        thisRGBAindex = 0
+        console.log(thisX, thisY,thisRGBA)
+        for(let thisRGBAstringToResetIndex = 0; thisRGBAstringToResetIndex <= (thisRGBA.length-1); thisRGBAstringToResetIndex++) {
+          thisRGBA[thisRGBAstringToResetIndex] = "";
+        }
+        thisRGBAindex = 0;
+        thisX++;
       } else {
         thisRGBAindex++
       }
     } else {
       thisRGBA[thisRGBAindex] += String(thisChar);
     }
-    console.log(thisRGBA)
     if(thisX % PANNELLO_WIDTH) {
       thisY++;
       thisX = 0;
