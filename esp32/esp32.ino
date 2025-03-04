@@ -41,7 +41,7 @@ void setup() {
       int thisX = 0;
       int thisY = 0;
       
-      String thisRGBAarray[4] = {"", "", "", "" };
+      String thisRGBAarray[4] = {"", "", "", ""};
       int thisRGBAindex = 0;
 
       for (int charIndex = 0; charIndex < completeHttpBodyString.length(); charIndex++) {
